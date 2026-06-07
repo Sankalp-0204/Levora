@@ -1,26 +1,618 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================================
+   LEVORA DESIGN TOKEN SYSTEM
+   Tailwind CSS v4 @theme registry
+   
+   Naming Convention:
+   --[category]-[scale-name]-[variant]
+   
+   Categories:
+     color        Brand colors, neutrals, semantic states
+     font         Typography families
+     text         Font sizes
+     font-weight  Font weights
+     tracking     Letter spacing
+     leading      Line heights
+     radius       Border radii
+     shadow       Box and drop shadows
+     z            Z-index layering scale
+     duration     Animation durations
+     ease         Animation easing curves
+     glass        Glassmorphism effect presets (blur + bg + border)
+     space        Custom spacing extensions
+   ============================================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* ==========================================================================
+     1. COLORS
+     
+     Naming: --color-[palette]-[step]
+     
+     Palettes:
+       gold          Precious metal gold accent (primary brand metal)
+       silver        Precious metal silver accent
+       void          Deep blacks for backgrounds
+       ink           Mid-dark charcoal surface layers
+       cloud         Light neutrals (almost never used — luxury is dark-first)
+       text          Semantic text roles
+       semantic      State colors (success, error, muted)
+     ========================================================================== */
+
+  /* ── Gold Scale ─────────────────────────────────────────────────────────── */
+  /* Inspired by 22k Indian gold: warm, rich, not garish.                     */
+  --color-gold-50: #FCF9F2;
+  /* Near-white parchment. Used for rare text on          */
+  /* very dark backgrounds or full-bleed overlays.         */
+  --color-gold-100: #F6EDB9;
+  /* Pale champagne. Skeleton shimmer, hover glints.      */
+  --color-gold-200: #ECD473;
+  /* Warm yellow-gold. Secondary accents, icon fills.      */
+  --color-gold-300: #E2BA39;
+  /* Burnished gold. Active states, progress indicators.   */
+  --color-gold-400: #D4AF37;
+  /* PRIMARY GOLD ACCENT — borders, highlights, CTAs.      */
+  /* Classic antique gold; restrained and luxurious.       */
+  --color-gold-500: #B79325;
+  /* Deep warm gold. Pressed/focused states.              */
+  --color-gold-600: #98761A;
+  /* Dark amber-gold. Text on gold backgrounds.           */
+
+  /* ── Silver Scale ───────────────────────────────────────────────────────── */
+  /* Sterling silver tones for secondary metal accents.                       */
+  --color-silver-50: #FFFFFF;
+  /* Pure white. Used for the rarest highlights only.  */
+  --color-silver-100: #F2F2F2;
+  /* Lightest silver. Almost invisible borders.        */
+  --color-silver-200: #E6E6E6;
+  /* Light grey-silver. Secondary borders.             */
+  --color-silver-300: #D4D4D4;
+  /* Mid silver. Subtle background differentiator.     */
+  --color-silver-400: #CCCCCC;
+  /* PRIMARY SILVER ACCENT — secondary metal elements. */
+  --color-silver-500: #999999;
+  /* Dark silver. Muted secondary text or dividers.    */
+  --color-silver-600: #777777;
+  /* Gunmetal grey. Heavy dividers, rule lines.        */
+
+  /* ── Void Scale (Backgrounds) ───────────────────────────────────────────── */
+  /* Deep blacks optimised for OLED, near-black contrasts.                   */
+  --color-void-000: #000000;
+  /* Absolute black. Used only for full-bleed overlays. */
+  --color-void-50: #050505;
+  /* Levora Black: true base background.               */
+  --color-void-100: #0A0A0A;
+  /* One step up. Ambient video overlays.              */
+  --color-void-200: #0D0E11;
+  /* Luxury Slate. Primary page background.            */
+  --color-void-300: #121217;
+  /* Deep surface. Card backgrounds, nav backdrop.     */
+  --color-void-400: #14161E;
+  /* Raised surface. Hover cards, glass layers.        */
+  --color-void-500: #1C1E28;
+  /* Elevated surface. Modal backdrop.                 */
+
+  /* ── Ink Scale (Mid-Dark Surfaces) ─────────────────────────────────────── */
+  --color-ink-100: #212128;
+  /* Section borders, rule lines.                      */
+  --color-ink-200: #2A2B36;
+  /* Dividers inside components.                       */
+  --color-ink-300: #363744;
+  /* Inactive tab backgrounds, skeleton loaders.       */
+
+  /* ── Semantic Text Colors ───────────────────────────────────────────────── */
+  /* Designed for WCAG AA compliance on void backgrounds.                     */
+  --color-text-primary: #FCFBF9;
+  /* Soft off-white. Primary body and heading text.*/
+  --color-text-secondary: #9F9F9F;
+  /* Clean mid-grey. Sub-headings, captions.       */
+  --color-text-muted: #626262;
+  /* Dark muted grey. Placeholder, helper text.    */
+  --color-text-gold: #D4AF37;
+  /* Gold tinted text. Luxury labels, prices.      */
+  --color-text-inverse: #050505;
+  /* Dark text on gold/light backgrounds.          */
+
+  /* ── Semantic State Colors ──────────────────────────────────────────────── */
+  --color-state-success: #4CAF7D;
+  /* Green — confirmation, success toasts.          */
+  --color-state-warning: #D4AC37;
+  /* Gold-amber — warnings without harshness.       */
+  --color-state-error: #C94B4B;
+  /* Muted red — errors, destructive actions.       */
+  --color-state-info: #5B8DC4;
+  /* Calm blue — informational notifications.       */
+
+  /* ── Gradient Definitions (as CSS custom properties) ───────────────────── */
+  /* Gradients cannot be used as Tailwind color tokens but are declared here  */
+  /* as custom properties for use in components.                              */
+  --gradient-gold-metallic: linear-gradient(135deg, #F6EDB9 0%, #D4AF37 50%, #98761A 100%);
+  --gradient-silver-metallic: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 50%, #888888 100%);
+  --gradient-gold-glow: radial-gradient(circle, rgba(212, 175, 55, 0.10) 0%, rgba(0, 0, 0, 0) 70%);
+  --gradient-page-ambient: radial-gradient(ellipse at top, #14161E 0%, #050505 100%);
+  --gradient-card-sheen: linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 60%);
+
+  /* ==========================================================================
+     2. TYPOGRAPHY
+     
+     Font families are injected by Next.js via the CSS variable method in
+     layout.tsx. The --font-display and --font-body variables are set on <html>.
+     Here we register them in @theme so Tailwind generates font-display / font-body
+     utility classes.
+     ========================================================================== */
+
+  --font-display: var(--font-display), "Georgia", serif;
+  /* Cormorant Garamond */
+  --font-body: var(--font-body), "system-ui", sans-serif;
+  /* Outfit            */
+
+  /* ── Font Sizes ─────────────────────────────────────────────────────────── */
+  /* Based on a Major Third scale (1.250) anchored at 1rem (16px).            */
+  /* Naming: text-[semantic-name] mirrors the typography hierarchy in the docs */
+  --text-h1: 4.5rem;
+  /* 72px  — Flagship page headings (Cormorant) */
+  --text-h2: 2.5rem;
+  /* 40px  — Section headings (Cormorant)       */
+  --text-h3: 1.75rem;
+  /* 28px  — Collection & watch names (Cor.)    */
+  --text-h4: 1.375rem;
+  /* 22px  — Sub-section labels (Cormorant)     */
+  --text-body-lg: 1.125rem;
+  /* 18px  — Narrative intros (Outfit)          */
+  --text-body: 0.9375rem;
+  /* 15px  — Specifications & copy (Outfit)     */
+  --text-body-sm: 0.875rem;
+  /* 14px  — Captions, helper text (Outfit)     */
+  --text-caps: 0.75rem;
+  /* 12px  — All-caps labels, nav links (Outfit)*/
+  --text-micro: 0.6875rem;
+  /* 11px  — Meta tags, timestamps (Outfit)     */
+
+  /* ── Font Weights ───────────────────────────────────────────────────────── */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ── Letter Spacing (Tracking) ──────────────────────────────────────────── */
+  /* Key to luxury typography: wide-tracked caps, tight display serifs.       */
+  --tracking-tight: -0.02em;
+  /* H1 Cormorant — pull letters close for gravitas  */
+  --tracking-normal: 0em;
+  /* H2, body — default baseline                     */
+  --tracking-relaxed: 0.02em;
+  /* H3 watch names — slight air between letters      */
+  --tracking-wide: 0.08em;
+  /* Body labels — comfortable reading                */
+  --tracking-luxury: 0.15em;
+  /* CAPS TAGS / NAV LINKS — the hallmark luxury look */
+  --tracking-ultra: 0.25em;
+  /* Decorative section labels (HERITAGE, ATELIER)    */
+
+  /* ── Line Heights (Leading) ─────────────────────────────────────────────── */
+  --leading-display: 1.05;
+  /* Tight for large display headings                    */
+  --leading-heading: 1.2;
+  /* Relaxed for section heads                           */
+  --leading-snug: 1.35;
+  /* Sub-headings and card titles                        */
+  --leading-body: 1.7;
+  /* Comfortable reading for body copy                   */
+  --leading-loose: 2.0;
+  /* Spacious for luxury narrative text sections          */
+
+  /* ==========================================================================
+     3. SPACING
+     
+     Extends the default Tailwind spacing scale with Levora-specific "gallery"
+     spacing — large sections with museum-quality breathing room.
+     ========================================================================== */
+
+  --spacing-section-sm: 6rem;
+  /* 96px  — Tight section pads (mobile)             */
+  --spacing-section-md: 8rem;
+  /* 128px — Standard section vertical padding        */
+  --spacing-section-lg: 12rem;
+  /* 192px — Flagship sections (hero, dial stage)     */
+  --spacing-section-xl: 16rem;
+  /* 256px — Full cinematic breath (story stages)     */
+
+  --spacing-content-max: 80rem;
+  /* 1280px — Standard max-width for content grids    */
+  --spacing-stage-max: 90rem;
+  /* 1440px — Widescreen storytelling stage max-width */
+
+  /* ==========================================================================
+     4. BORDER RADIUS
+     
+     Naming: --radius-[semantic-scale]
+     
+     Levora uses two distinct curves:
+       • Near-zero radius for industrial, mechanical elements (watch bezels).
+       • High-radius for glass panels and overlays (watch crystals).
+     ========================================================================== */
+
+  --radius-none: 0px;
+  /* Watch bezels, technical panels, full-bleed elements  */
+  --radius-sm: 2px;
+  /* Tag pills, keyboard badges                           */
+  --radius-md: 6px;
+  /* Input fields, small UI cards                         */
+  --radius-lg: 12px;
+  /* Standard glass cards, image frames                   */
+  --radius-xl: 20px;
+  /* Feature cards, modals, drawers                       */
+  --radius-2xl: 32px;
+  /* Hero glass panels, full-width feature cards          */
+  --radius-crystal: 9999px;
+  /* Pill buttons, avatar badges — "watch crystal" curve  */
+
+  /* ==========================================================================
+     5. SHADOWS
+     
+     Naming: --shadow-[semantic-name]
+     
+     Rules:
+       • Never use pure black shadows (harsh, cheap). Use dark-navy-tinted shadows.
+       • Gold glow shadows are reserved for primary CTAs and hover states.
+       • All shadows must use very high spread with low opacity.
+     ========================================================================== */
+
+  /* ── Elevation Shadows (Depth) ──────────────────────────────────────────── */
+  --shadow-none: none;
+
+  --shadow-surface:
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    0 1px 2px rgba(0, 0, 0, 0.20);
+
+  --shadow-raised:
+    0 4px 16px rgba(0, 0, 0, 0.40),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+
+  --shadow-float:
+    0 8px 30px rgba(0, 0, 0, 0.50),
+    0 4px 12px rgba(0, 0, 0, 0.30);
+
+  --shadow-modal:
+    0 25px 60px rgba(0, 0, 0, 0.70),
+    0 10px 25px rgba(0, 0, 0, 0.40);
+
+  --shadow-deep:
+    0 40px 80px rgba(0, 0, 0, 0.80),
+    0 15px 35px rgba(0, 0, 0, 0.50);
+
+  /* ── Gold Glow Shadows (Brand CTA / Hover) ──────────────────────────────── */
+  --shadow-gold-sm:
+    0 0 12px rgba(212, 175, 55, 0.20),
+    0 0 4px rgba(212, 175, 55, 0.10);
+
+  --shadow-gold-md:
+    0 0 30px rgba(212, 175, 55, 0.25),
+    0 0 12px rgba(212, 175, 55, 0.15);
+
+  --shadow-gold-lg:
+    0 0 60px rgba(212, 175, 55, 0.30),
+    0 0 25px rgba(212, 175, 55, 0.20),
+    0 0 8px rgba(212, 175, 55, 0.12);
+
+  /* ── Inset / Inner Shadows ──────────────────────────────────────────────── */
+  --shadow-inset-dark: inset 0 1px 4px rgba(0, 0, 0, 0.60);
+  --shadow-inset-gold: inset 0 1px 2px rgba(212, 175, 55, 0.15);
+
+  /* ==========================================================================
+     6. LAYERING (Z-INDEX)
+     
+     Naming: --z-[layer-name]
+     
+     All z-index values are declared as tokens to prevent z-index wars in
+     complex animation stacks. GSAP sets z-index dynamically during dial
+     layer separation — those values derive from the database `zIndex` field,
+     not these tokens.
+     ========================================================================== */
+
+  --z-base: 0;
+  /* Document flow baseline                                  */
+  --z-raised: 10;
+  /* Watch card hover lifts, floating elements                */
+  --z-dial-layer: 20;
+  /* GSAP-animated dial layers base stack                    */
+  --z-sticky: 50;
+  /* Sticky section headers, floating progress indicators     */
+  --z-dropdown: 100;
+  /* Navigation dropdown menus                               */
+  --z-drawer: 200;
+  /* Side panels, wishlist drawers, filter panels            */
+  --z-modal: 300;
+  /* Full-screen modals, concierge overlay                   */
+  --z-toast: 400;
+  /* Toast notifications, floating alerts                    */
+  --z-overlay: 500;
+  /* Full-screen video overlays, loading screens             */
+  --z-cursor: 999;
+  /* Custom cursor (if implemented) — always on top          */
+
+  /* ==========================================================================
+     7. MOTION TIMING
+     
+     Naming: --duration-[name], --ease-[name]
+     
+     Luxury animation philosophy: deliberate, weighted, decelerated.
+     Fast animations feel cheap. Slow animations feel exclusive.
+     ========================================================================== */
+
+  /* ── Durations ──────────────────────────────────────────────────────────── */
+  --duration-instant: 100ms;
+  /* Micro-feedback: checkbox ticks, icon swaps        */
+  --duration-fast: 200ms;
+  /* Button press feedback, hover border transitions    */
+  --duration-normal: 350ms;
+  /* Standard UI transitions (tabs, dropdowns)         */
+  --duration-slow: 600ms;
+  /* Card reveals, panel slides, image fades           */
+  --duration-luxury: 900ms;
+  /* Premium entrances: hero text, watch card hovers   */
+  --duration-cinematic: 1400ms;
+  /* Full-page transitions, modal opens                */
+  --duration-story: 2000ms;
+  /* Story scroll panel fade-ins                       */
+
+  /* ── Easing Curves ──────────────────────────────────────────────────────── */
+  /* "Luxury cubic bezier": fast initial momentum, heavy deceleration.        */
+  /* Mirrors physical inertia of a precision mechanical mechanism.            */
+
+  --ease-luxury: cubic-bezier(0.16, 1.00, 0.30, 1.00);
+  /* Primary brand ease   */
+  /* Fast out, silk stop  */
+  --ease-in-luxury: cubic-bezier(0.55, 0.00, 1.00, 0.45);
+  /* Accelerating entries */
+  --ease-out-expo: cubic-bezier(0.19, 1.00, 0.22, 1.00);
+  /* Explosive decel      */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1.00);
+  /* Subtle spring finish */
+  --ease-linear: linear;
+  /* GSAP scrub timelines */
+  --ease-standard: cubic-bezier(0.25, 0.10, 0.25, 1.00);
+  /* Fallback smooth ease */
+
+  /* ── GSAP Scrub Reference (non-CSS, for documentation purposes) ──────────── */
+  /* gsap ScrollTrigger scrub: 1    — Standard scroll friction                   */
+  /* gsap ScrollTrigger scrub: 1.5  — Premium, heavy-feeling scrub               */
+  /* These are NOT CSS variables. Defined in lib/gsap/config.ts instead.        */
+
+  /* ==========================================================================
+     8. GLASSMORPHISM EFFECTS
+     
+     Naming: --glass-[variant]-[property]
+     
+     Glass panels mimic the sapphire crystal of luxury watch faces:
+     high-blur, paper-thin borders, ultra-low opacity backgrounds.
+     
+     Variants:
+       dark     Deep charcoal glass (primary surface on dark pages)
+       gold     Gold-tinted glass (CTAs, highlighted sections)
+       frost    Near-white glass (rarely used; only for light mode elements)
+     ========================================================================== */
+
+  /* ── Dark Glass (primary) ───────────────────────────────────────────────── */
+  --glass-dark-bg: rgba(13, 14, 17, 0.60);
+  /* void-200 @ 60% opacity    */
+  --glass-dark-blur: 20px;
+  /* backdrop-blur value       */
+  --glass-dark-border: rgba(255, 255, 255, 0.05);
+  /* whisper-thin white border */
+  --glass-dark-border-w: 0.5px;
+  /* hairline border width      */
+  --glass-dark-shadow: var(--shadow-float);
+  /* floats above content       */
+
+  /* ── Gold Glass (accent) ────────────────────────────────────────────────── */
+  --glass-gold-bg: rgba(212, 175, 55, 0.06);
+  /* gold-400 @ 6% opacity     */
+  --glass-gold-blur: 16px;
+  --glass-gold-border: rgba(212, 175, 55, 0.20);
+  /* visible gold border edge  */
+  --glass-gold-border-w: 0.5px;
+  --glass-gold-shadow: var(--shadow-gold-md);
+  /* gold glow elevation        */
+
+  /* ── Frost Glass (rare) ─────────────────────────────────────────────────── */
+  --glass-frost-bg: rgba(255, 255, 255, 0.04);
+  --glass-frost-blur: 24px;
+  --glass-frost-border: rgba(255, 255, 255, 0.10);
+  --glass-frost-border-w: 0.5px;
+  --glass-frost-shadow: var(--shadow-raised);
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+/* ============================================================================
+   BASE LAYER — Apply brand theme to document root
+   ============================================================================ */
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  /* Sensible font rendering for dark luxury interfaces */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-void-200);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+
+/* ============================================================================
+   TYPOGRAPHY BASE — Semantic defaults from token system
+   ============================================================================ */
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-display);
+  color: var(--color-text-primary);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-heading);
+  color: var(--color-text-primary);
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-relaxed);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+}
+
+h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-relaxed);
+  line-height: var(--leading-snug);
+  color: var(--color-text-secondary);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-body);
+  color: var(--color-text-secondary);
+}
+
+
+/* ============================================================================
+   UTILITY CLASSES — Composable token-based helpers
+   These complement Tailwind utilities for token values outside default scale.
+   ============================================================================ */
+
+/* ── Gradient Utilities ─────────────────────────────────────────────────── */
+.bg-gradient-gold {
+  background: var(--gradient-gold-metallic);
+}
+
+.bg-gradient-silver {
+  background: var(--gradient-silver-metallic);
+}
+
+.bg-gradient-ambient {
+  background: var(--gradient-page-ambient);
+}
+
+/* ── Glassmorphism Utility Classes ──────────────────────────────────────── */
+
+/* Primary dark glass panel */
+.glass-dark {
+  background-color: var(--glass-dark-bg);
+  backdrop-filter: blur(var(--glass-dark-blur));
+  -webkit-backdrop-filter: blur(var(--glass-dark-blur));
+  border: var(--glass-dark-border-w) solid var(--glass-dark-border);
+  box-shadow: var(--glass-dark-shadow);
+}
+
+/* Gold-tinted glass panel */
+.glass-gold {
+  background-color: var(--glass-gold-bg);
+  backdrop-filter: blur(var(--glass-gold-blur));
+  -webkit-backdrop-filter: blur(var(--glass-gold-blur));
+  border: var(--glass-gold-border-w) solid var(--glass-gold-border);
+  box-shadow: var(--glass-gold-shadow);
+}
+
+/* Frost glass panel */
+.glass-frost {
+  background-color: var(--glass-frost-bg);
+  backdrop-filter: blur(var(--glass-frost-blur));
+  -webkit-backdrop-filter: blur(var(--glass-frost-blur));
+  border: var(--glass-frost-border-w) solid var(--glass-frost-border);
+  box-shadow: var(--glass-frost-shadow);
+}
+
+/* ── Typography Utility Classes ─────────────────────────────────────────── */
+
+/* All-caps luxury label — nav links, section tags, button text */
+.text-caps-luxury {
+  font-family: var(--font-body);
+  font-size: var(--text-caps);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-luxury);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Decorative section heading (e.g. HERITAGE COLLECTION) */
+.text-section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-ultra);
+  text-transform: uppercase;
+  color: var(--color-gold-400);
+}
+
+/* Gold text highlight — price, featured label */
+.text-gold {
+  color: var(--color-text-gold);
+}
+
+/* ── Shadow Utility Classes ─────────────────────────────────────────────── */
+.shadow-gold-glow-sm {
+  box-shadow: var(--shadow-gold-sm);
+}
+
+.shadow-gold-glow {
+  box-shadow: var(--shadow-gold-md);
+}
+
+.shadow-gold-glow-lg {
+  box-shadow: var(--shadow-gold-lg);
+}
+
+/* ── Transition Utility Classes ─────────────────────────────────────────── */
+/* Use for CSS-driven transitions. GSAP handles complex keyframe animations. */
+.transition-luxury {
+  transition-property: transform, opacity, border-color, box-shadow;
+  transition-duration: var(--duration-luxury);
+  transition-timing-function: var(--ease-luxury);
+}
+
+.transition-fast {
+  transition-property: transform, opacity, border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-luxury);
+}
+
+.transition-cinematic {
+  transition-property: transform, opacity;
+  transition-duration: var(--duration-cinematic);
+  transition-timing-function: var(--ease-out-expo);
+}
+
+/* ── Performance Hints ───────────────────────────────────────────────────── */
+/* Applied to elements that will be animated by GSAP ScrollTrigger.          */
+/* Forces GPU compositing before animation begins.                           */
+.will-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  /* Promote to compositing layer                   */
 }
