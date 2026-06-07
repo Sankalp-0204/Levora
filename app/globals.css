@@ -452,7 +452,11 @@ body {
 
 
 /* ============================================================================
-   TYPOGRAPHY BASE — Semantic defaults from token system
+   TYPOGRAPHY BASE — Legacy element defaults (fallback only)
+   
+   Sprint 2C strategy: .type-* classes in typography.css are canonical for
+   homepage and all new UI. These tag rules remain as unstyled-scaffold fallback
+   until Phase 2 scopes or removes them. Do not add new styles here.
    ============================================================================ */
 
 h1 {
@@ -495,7 +499,7 @@ p {
   font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: var(--font-weight-light);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-normal);
   line-height: var(--leading-body);
   color: var(--color-text-secondary);
 }
@@ -549,8 +553,12 @@ p {
 }
 
 /* ── Typography Utility Classes ─────────────────────────────────────────── */
+/*
+ * DEPRECATED (Sprint 2C Phase 0): use .type-nav-label / .type-button-label /
+ * .type-section-label from typography.css instead. Removed in Phase 7.
+ */
 
-/* All-caps luxury label — nav links, section tags, button text */
+/* @deprecated → .type-nav-label or .type-button-label */
 .text-caps-luxury {
   font-family: var(--font-body);
   font-size: var(--text-caps);
@@ -560,7 +568,7 @@ p {
   color: var(--color-text-secondary);
 }
 
-/* Decorative section heading (e.g. HERITAGE COLLECTION) */
+/* @deprecated → .type-section-label */
 .text-section-label {
   font-family: var(--font-body);
   font-size: var(--text-micro);

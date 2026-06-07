@@ -1,6 +1,10 @@
 /* ============================================================================
    LEVORA TYPOGRAPHY SYSTEM — typography.css
    
+   CANONICAL typography layer for Sprint 2C+. Apply .type-* classes explicitly
+   on every text element in homepage sections and new UI. Do not rely on
+   unclassed h1–p defaults in globals.css (legacy fallback — Phase 2 removal).
+   
    This file defines every semantic typographic role as composable CSS classes.
    It is imported by globals.css and extends the base @theme token definitions.
    
@@ -138,11 +142,11 @@ em, i {
  * .type-hero-display--italic
  * Italic variant for poetic, story-driven hero lines.
  * Cormorant's italic is exceptionally beautiful — use deliberately.
- * 
+ *
+ * Usage: class="type-hero-display type-hero-display--italic"
  * Example: "Every dial is a canvas."
  */
 .type-hero-display--italic {
-  composes: type-hero-display;
   font-style: italic;
   /* Italic at display size benefits from slightly looser tracking */
   letter-spacing: -0.01em;
@@ -582,7 +586,7 @@ em, i {
 .type-chapter-marker {
   font-family:    var(--font-display);
   font-size:      var(--text-fluid-display);  /* Fluid 36–80px */
-  font-weight:    100;                         /* Featherlight — barely there */
+  font-weight:    300;                         /* Light — Cormorant min loaded weight */
   letter-spacing: -0.02em;
   line-height:    1;
   color:          var(--color-ink-300);       /* Extremely muted */

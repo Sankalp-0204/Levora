@@ -2,70 +2,123 @@
 
 This document details the design system, colors, typography, borders, and layout guidelines for Levora, ensuring visual consistency across all pages.
 
+**Source of truth:** `app/globals.css` (`@theme` registry). This doc mirrors that file.  
+**Typography roles:** `app/typography.css` (`.type-*` classes) — see [Typography Strategy](#6-typography-strategy).  
+**Token audit:** `docs/SPRINT_2C_PHASE0_AUDIT.md`
+
 ---
 
 ## 1. Visual Theme & Core Principles
 
 Levora's aesthetic is built around **Indian Heritage, Cultural Storytelling, and Precious Metals (Gold & Silver)**.
+
 * **Luxury Contrast**: Deep, dark, matte backgrounds contrasted with thin, reflective gold and silver lines.
 * **Canvas Philosophy**: Each page layout is treated as a museum gallery page: clean margins, large empty spaces, and high-quality imagery.
 * **Glassmorphism**: Layered glass cards with high-radius backdrops, mimicking watch crystals.
 
 ---
 
-## 2. Color Palette (Tailwind CSS v4 Mapping)
+## 2. Color Palette (Tailwind CSS v4)
 
-These variables must be registered in the `@theme` segment of `globals.css`:
+All variables are registered in the `@theme inline` block of `app/globals.css`. Use Tailwind utilities generated from these tokens — do not hard-code hex values in components.
 
-```css
-@theme inline {
-  /* Brand Metal Colors */
-  --color-gold-50: #FCF9F2;
-  --color-gold-100: #F6EDB9;
-  --color-gold-200: #ECD473;
-  --color-gold-300: #E2BA39;
-  --color-gold-400: #D4AF37; /* Primary Gold Accent */
-  --color-gold-500: #B79325;
-  --color-gold-600: #98761A;
-  
-  --color-silver-100: #F2F2F2;
-  --color-silver-200: #E6E6E6;
-  --color-silver-400: #CCCCCC; /* Primary Silver Accent */
-  
-  /* Brand Neutrals (Charcoals & Slates) */
-  --color-luxury-black: #050505;
-  --color-luxury-slate-900: #0D0E11;
-  --color-luxury-slate-800: #14161E;
-  --color-luxury-charcoal: #121212;
+### Brand metals
 
-  /* Typography Colors */
-  --color-luxury-text-primary: #FCFBF9; /* Soft Off-White */
-  --color-luxury-text-secondary: #9F9F9F; /* Clean Grey */
-  --color-luxury-text-muted: #626262; /* Dark Muted Grey */
-}
-```
+| Token | Hex | Tailwind utility | Usage |
+|-------|-----|------------------|-------|
+| `--color-gold-400` | `#D4AF37` | `text-gold-400`, `border-gold-400` | Primary gold accent — borders, CTAs, highlights |
+| `--color-gold-50`–`600` | (scale) | `bg-gold-*`, `text-gold-*` | Full gold scale |
+| `--color-silver-400` | `#CCCCCC` | `text-silver-400` | Primary silver accent |
+| `--color-silver-50`–`600` | (scale) | `bg-silver-*`, `text-silver-*` | Full silver scale |
+
+### Backgrounds (void scale)
+
+| Token | Hex | Tailwind utility | Usage |
+|-------|-----|------------------|-------|
+| `--color-void-50` | `#050505` | `bg-void-50` | True base black |
+| `--color-void-200` | `#0D0E11` | `bg-void-200` | Primary page background |
+| `--color-void-300` | `#121217` | `bg-void-300` | Card surfaces, nav backdrop |
+| `--color-void-400` | `#14161E` | `bg-void-400` | Raised surfaces, glass layers |
+| `--color-void-500` | `#1C1E28` | `bg-void-500` | Elevated surfaces, modal backdrop |
+
+### Surfaces (ink scale)
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--color-ink-100` | `#212128` | Section borders, rule lines |
+| `--color-ink-200` | `#2A2B36` | Dividers inside components |
+| `--color-ink-300` | `#363744` | Inactive tabs, skeleton loaders |
+
+### Semantic text colors
+
+| Token | Hex | Tailwind utility | Usage |
+|-------|-----|------------------|-------|
+| `--color-text-primary` | `#FCFBF9` | `text-text-primary` | Headings, primary copy |
+| `--color-text-secondary` | `#9F9F9F` | `text-text-secondary` | Body, sub-headings |
+| `--color-text-muted` | `#626262` | `text-text-muted` | Captions, placeholders |
+| `--color-text-gold` | `#D4AF37` | via `.text-gold` utility | Gold-tinted labels, prices |
+| `--color-text-inverse` | `#050505` | `text-text-inverse` | Text on gold/light backgrounds |
+
+### State colors
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--color-state-success` | `#4CAF7D` | Confirmations |
+| `--color-state-warning` | `#D4AC37` | Warnings |
+| `--color-state-error` | `#C94B4B` | Errors |
+| `--color-state-info` | `#5B8DC4` | Informational |
+
+### Legacy name migration
+
+Do not use these names in new code. They appear in older docs and examples only.
+
+| Legacy (deprecated) | Canonical token | Tailwind utility |
+|---------------------|-------------------|------------------|
+| `luxury-black` | `--color-void-50` | `bg-void-50` |
+| `luxury-slate-900` | `--color-void-200` | `bg-void-200` |
+| `luxury-charcoal` | `--color-void-300` | `bg-void-300` |
+| `luxury-slate-800` | `--color-void-400` | `bg-void-400` |
+| `luxury-text-primary` | `--color-text-primary` | `text-text-primary` |
+| `luxury-text-secondary` | `--color-text-secondary` | `text-text-secondary` |
+| `luxury-text-muted` | `--color-text-muted` | `text-text-muted` |
+| `bg-luxury-black/60` | `.glass-dark` or `bg-void-200/60` | — |
 
 ### Gradients
-* **Polished Gold Gradient**: `linear-gradient(135deg, #F6EDB9 0%, #D4AF37 50%, #98761A 100%)`
-* **Polished Silver Gradient**: `linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 50%, #888888 100%)`
-* **Ambient Backdrop Shadow**: `radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(0,0,0,0) 70%)` (for ambient gold glows behind watch showcases).
+
+Declared as CSS custom properties in `globals.css` (not Tailwind color tokens):
+
+| Property | Utility class | Usage |
+|----------|---------------|-------|
+| `--gradient-gold-metallic` | `.bg-gradient-gold` | Button hover, decorative highlights |
+| `--gradient-silver-metallic` | `.bg-gradient-silver` | Secondary metal accents |
+| `--gradient-gold-glow` | — | Ambient glow behind watch showcases |
+| `--gradient-page-ambient` | `.bg-gradient-ambient` | Section background washes |
+| `--gradient-card-sheen` | — | Card top-edge highlight |
 
 ---
 
 ## 3. Typography Hierarchy
 
-We use Google Fonts loaded via Next.js Font Optimizations:
-* **Primary Serif Display Font**: `Cormorant Garamond` (Classic, elegant, serif) - used for Titles, Headers, and Quotes.
-* **Secondary Sans-Serif Font**: `Outfit` (Geometric, clean, modern) - used for product specs, body copy, and UI tags.
+Fonts are loaded via Next.js in `app/fonts.ts` and injected as CSS variables on `<html>`:
 
-| Level | Font Family | Size (Desktop) | Weight | Tracking (Letter Spacing) | Usage |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **H1** | Cormorant Garamond | 4.5rem (72px) | Light (300) | `-0.02em` | Flagship Page Headings |
-| **H2** | Cormorant Garamond | 2.5rem (40px) | Regular (400) | `normal` | Section Headings |
-| **H3** | Cormorant Garamond | 1.75rem (28px) | Medium (500) | `0.02em` | Collection & Watch Names |
-| **Body Large** | Outfit | 1.125rem (18px) | Regular (400) | `normal` | Narrative intros |
-| **Body Regular** | Outfit | 0.95rem (15px) | Light (300) | `0.01em` | Specifications & Description copy |
-| **Caps Tag** | Outfit | 0.75rem (12px) | Semi-Bold (600) | `0.15em` | Buttons, navigation links, and sub-titles |
+* **Display:** Cormorant Garamond → `--font-display` → `font-display`
+* **Body:** Outfit → `--font-body` → `font-body`
+
+### Static size tokens (desktop reference)
+
+| Role | Font | Size | Weight | Tracking | CSS token |
+|------|------|------|--------|----------|-----------|
+| H1 | Cormorant | 4.5rem (72px) | 300 | `-0.02em` | `--text-h1` |
+| H2 | Cormorant | 2.5rem (40px) | 400 | `0em` | `--text-h2` |
+| H3 | Cormorant | 1.75rem (28px) | 500 | `0.02em` | `--text-h3` |
+| H4 | Cormorant | 1.375rem (22px) | 500 | `0.02em` | `--text-h4` |
+| Body large | Outfit | 1.125rem (18px) | 300 | `0em` | `--text-body-lg` |
+| Body | Outfit | 0.9375rem (15px) | 300 | `0em` | `--text-body` |
+| Caps / nav | Outfit | 0.75rem (12px) | 600 | `0.15em` | `--text-caps` |
+
+Display headings use fluid `clamp()` sizes via `--text-fluid-*` tokens (wired in Phase 1). Apply sizes through `.type-*` semantic classes, not unclassed heading tags.
+
+Full role definitions: `app/typography.css`, `lib/tokens/typography.ts`.
 
 ---
 
@@ -73,21 +126,71 @@ We use Google Fonts loaded via Next.js Font Optimizations:
 
 Luxury UI components must feel floating and translucent:
 
-* **Micro Borders**:
-  * Borders on cards or dividers must be very thin: `border-[0.5px] border-white/5` or `border-[0.5px] border-gold-400/20`.
-* **Glassmorphic Surface Blur**:
-  * `backdrop-blur-xl bg-luxury-black/60` (or `bg-zinc-950/60`).
-* **Luxury Shadows**:
-  * Avoid heavy black shadows. Use soft, high-spread shadows: `shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]`.
+* **Micro borders:** `border-[0.5px] border-white/5` or `border-gold-400/20`
+* **Glass panels:** use composed classes — `.glass-dark`, `.glass-gold`, `.glass-frost` (defined in `globals.css`)
+* **Shadows:** use token utilities — `shadow-float`, `shadow-modal`, `shadow-gold-sm` — not arbitrary rgba values
+
+Example glass header (scrolled state):
+
+```html
+<header class="glass-dark border-b border-white/5 z-sticky">...</header>
+```
 
 ---
 
 ## 5. Layout Grid & Spacing System
 
-* **Max Width**: Grid layouts must be bounded at `max-w-7xl` (1280px) for standard listings, and `max-w-[1440px]` for widescreen storytelling stages.
-* **Whitespace**:
-  * Section padding: `py-24 sm:py-32` (plenty of breathing room).
-  * Column spacing: `gap-8 sm:gap-12`.
-* **Responsive Breakpoints**:
-  * Focus on mobile-first flex/grid wrapping.
-  * Provide dynamic side panels on desktop that convert into bottom drawers on mobile devices.
+Constants live in `lib/constants/layout.ts`. CSS utilities arrive in `app/layout.css` (Phase 1).
+
+| Context | Value | Token / constant |
+|---------|-------|------------------|
+| Content max width | 1280px | `--spacing-content-max`, `CONTAINER.content` |
+| Storytelling stage | 1440px | `--spacing-stage-max`, `CONTAINER.stage` |
+| Section padding (standard) | 128px | `--spacing-section-md`, `SECTION_SPACING.md` |
+| Column gap (standard) | 32px | `GRID.gap.md` |
+| Nav height (default) | 88px | `NAV.heightDefault` |
+| Nav height (scrolled) | 64px | `NAV.heightCompact` |
+
+Breakpoints: 375, 480, 640, 768, 1024, 1280, 1440, 1920px — see `BREAKPOINTS` in `layout.ts`.
+
+---
+
+## 6. Typography Strategy
+
+Sprint 2C establishes a single application layer for typography:
+
+| Layer | Location | Status | Use for |
+|-------|----------|--------|---------|
+| **Primary** | `.type-*` in `typography.css` | Canonical | All homepage and new UI text |
+| **Legacy utilities** | `.text-caps-luxury`, `.text-section-label` in `globals.css` | Deprecated | Do not use in new code |
+| **Tag defaults** | `h1–p` in `globals.css` | Fallback only | Unstyled prose outside homepage; removed in Phase 2 |
+
+### Canonical examples
+
+```html
+<h1 class="type-hero-display">History is not written.</h1>
+<h2 class="type-section-heading">The Atelier</h2>
+<span class="type-section-label">Heritage Collection</span>
+<a class="type-nav-label" href="/collections">Collections</a>
+<p class="type-body">Standard descriptive copy.</p>
+```
+
+### Legacy → canonical class map
+
+| Legacy | Canonical |
+|--------|-----------|
+| `.text-caps-luxury` | `.type-nav-label` or `.type-button-label` |
+| `.text-section-label` | `.type-section-label` |
+| Unclassed `h2` | `h2.type-section-heading` |
+
+---
+
+## 7. JavaScript token mirrors
+
+Animation and layout code reads typed constants from `lib/tokens/`:
+
+* `lib/tokens/index.ts` — colors, motion, z-index, shadows, glass, radius
+* `lib/tokens/typography.ts` — type roles, fluid sizes, prose widths
+* `lib/constants/layout.ts` — breakpoints, containers, nav, grid
+
+When a value changes in `globals.css @theme`, update the matching JS mirror in the same PR.

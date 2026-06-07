@@ -647,7 +647,7 @@ export const typeRoles: Record<string, TypeRole> = {
   chapterMarker: {
     family:        fontFamily.display,
     size:          fluidFontSize.display,
-    weight:        fontWeight.featherlight,
+    weight:        fontWeight.light,
     letterSpacing: letterSpacing.tight,
     lineHeight:    lineHeight.flat,
     color:         "var(--color-ink-300)",
