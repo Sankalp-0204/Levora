@@ -48,56 +48,56 @@ export const WATCH_PLACEHOLDERS: Record<HeritageWatchId, StaticWatchPlaceholder>
   HERITAGE_01: {
     id: "HERITAGE_01",
     slug: "heritage-01",
-    defaultName: "Heritage I — Chand Baori Dial",
-    tagline: "Geometry of Stepwell Architecture",
+    defaultName: "HERITAGE_01",
+    tagline: "HERITAGE_01_INSPIRATION",
     defaultPrice: 28500000, // ₹2,85,000.00
     order: 1,
   },
   HERITAGE_02: {
     id: "HERITAGE_02",
     slug: "heritage-02",
-    defaultName: "Heritage II — Minakari Dial",
-    tagline: "Vibrant Cloisonné Enamelling",
+    defaultName: "HERITAGE_02",
+    tagline: "HERITAGE_02_INSPIRATION",
     defaultPrice: 32000000, // ₹3,20,000.00
     order: 2,
   },
   HERITAGE_03: {
     id: "HERITAGE_03",
     slug: "heritage-03",
-    defaultName: "Heritage III — Pichwai Artistry",
-    tagline: "Sacred Srinathji Narratives",
+    defaultName: "HERITAGE_03",
+    tagline: "HERITAGE_03_INSPIRATION",
     defaultPrice: 35000000, // ₹3,50,000.00
     order: 3,
   },
   HERITAGE_04: {
     id: "HERITAGE_04",
     slug: "heritage-04",
-    defaultName: "Heritage IV — Tarkashi Inlay",
-    tagline: "Fine Brass Wire Inlaid in Wood",
+    defaultName: "HERITAGE_04",
+    tagline: "HERITAGE_04_INSPIRATION",
     defaultPrice: 29500000, // ₹2,95,000.00
     order: 4,
   },
   HERITAGE_05: {
     id: "HERITAGE_05",
     slug: "heritage-05",
-    defaultName: "Heritage V — Bidriware Dial",
-    tagline: "Silver Sheets Inlaid on Zinc-Copper",
+    defaultName: "HERITAGE_05",
+    tagline: "HERITAGE_05_INSPIRATION",
     defaultPrice: 31000000, // ₹3,10,000.00
     order: 5,
   },
   HERITAGE_06: {
     id: "HERITAGE_06",
     slug: "heritage-06",
-    defaultName: "Heritage VI — Miniature Painting",
-    tagline: "Single-Hair Brushstroke Splendor",
+    defaultName: "HERITAGE_06",
+    tagline: "HERITAGE_06_INSPIRATION",
     defaultPrice: 38000000, // ₹3,80,000.00
     order: 6,
   },
   HERITAGE_07: {
     id: "HERITAGE_07",
     slug: "heritage-07",
-    defaultName: "Heritage VII — Filigree Dial",
-    tagline: "Intricate Silver Threadwork Mesh",
+    defaultName: "HERITAGE_07",
+    tagline: "HERITAGE_07_INSPIRATION",
     defaultPrice: 34000000, // ₹3,40,000.00
     order: 7,
   },
