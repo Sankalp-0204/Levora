@@ -49,10 +49,17 @@ All documents are located in the `/docs` directory and root workspace:
     * Breaks down the visual coding, animation layering, backend configurations, optimization, and deployment phases into 10 development sprints.
     * Highlights objectives, deliverables, and success criteria for each sprint step.
 
+11. **[TypeScript Shared Type Architecture](file:///d:/levora/types/index.ts)** (`/types` directory)
+    * Establishes branded ID types, client-to-server data models, and status workflows for Watches, Collections, Stories, MediaAssets, Users, and Concierge Inquiries.
+
+12. **[Constants Architecture](file:///d:/levora/lib/constants/index.ts)** (`/lib/constants` directory)
+    * Organizes global brand variables, SEO parameters, private salon contact details, routing paths, and static fallback configurations for `HERITAGE_01` through `HERITAGE_07` placeholders.
+
 ---
 
 ## Validation & Verification
 
 * **Decoupled Architecture**: All specific watch names have been removed from schemas, code snippets, and catalogs.
-* **Path Integrity**: Modified files have been verified in the local workspace directory `d:\levora\docs\`.
-* **Zero Code Modification**: No application code or active routes have been created or altered, adhering to a documentation-only workflow.
+* **Shared Type Safety & Constants**: The domain type system and static site variables are modularly integrated under `/types` and `/lib/constants`.
+* **Compilation Status**: Verified compile integrity with `npx tsc --noEmit` which runs with 0 warnings/errors.
+* **Zero UI/Router Implementation**: No components or visual pages have been generated yet, leaving all rendering systems completely decoupled.

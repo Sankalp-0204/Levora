@@ -1,0 +1,831 @@
+/* ============================================================================
+   LEVORA TYPOGRAPHY SYSTEM — typography.css
+   
+   This file defines every semantic typographic role as composable CSS classes.
+   It is imported by globals.css and extends the base @theme token definitions.
+   
+   File structure:
+     1.  @theme Extension  — Fluid clamp() size tokens
+     2.  Base Resets       — Sensible defaults for all text elements  
+     3.  Display Roles     — Hero display, page headings
+     4.  Heading Roles     — H1 through H5 semantic classes
+     5.  Body Roles        — Narrative lead, body, caption
+     6.  UI Label Roles    — Navigation, buttons, section labels
+     7.  Spec Roles        — Watch specification tables
+     8.  Data Roles        — Price, metadata, reference IDs, badges
+     9.  Story Roles       — Pull-quotes, chapter markers, story text
+    10.  Prose Containers  — Reading-width bounded containers
+    11.  Responsive Overrides — Mobile-specific adjustments
+    12.  Utility Modifiers  — Color, weight, style, alignment helpers
+   
+   USAGE:
+     <h1 class="type-page-heading">The Heritage Collection</h1>
+     <p class="type-narrative-lead">Every dial tells a story...</p>
+     <span class="type-section-label">Heritage Collection</span>
+     <dd class="type-spec-value">Swiss ETA 2824-2</dd>
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. @THEME EXTENSION — Fluid clamp() size tokens
+   
+   These extend the static size tokens already in globals.css with fluid
+   counterparts. Tailwind generates fluid-[name] utility classes from these.
+   ============================================================================ */
+
+@theme inline {
+
+  /* Fluid sizes — scale smoothly from 375px → 1440px viewport */
+  --text-fluid-display:   clamp(2.25rem, 1.023rem + 5.231vw, 5rem);
+  --text-fluid-h1:        clamp(2rem,    0.923rem + 4.615vw, 4.5rem);
+  --text-fluid-h2:        clamp(1.5rem,  1.077rem + 1.846vw, 2.5rem);
+  --text-fluid-h3:        clamp(1.25rem, 1.038rem + 0.923vw, 1.75rem);
+  --text-fluid-h4:        clamp(1.0625rem, 0.929rem + 0.577vw, 1.375rem);
+  --text-fluid-h5:        clamp(1rem,    0.946rem + 0.231vw, 1.125rem);
+
+  /* Monospace font for reference numbers and technical IDs */
+  --font-mono:
+    'ui-monospace', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Prose reading widths */
+  --prose-tight:    45ch;
+  --prose-standard: 60ch;
+  --prose-wide:     72ch;
+  --prose-max:      90ch;
+
+}
+
+
+/* ============================================================================
+   2. BASE RESETS — Sensible defaults for all text elements
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  /* Prevent text inflation on mobile WebKit */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Inherit box-model for pseudo-elements used in decorative typography */
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+/* Responsive image caption reset */
+figure {
+  margin: 0;
+}
+
+figcaption {
+  margin-top: 0.75rem;
+}
+
+/* Blockquote reset — styled via .type-pull-quote */
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+/* Strong / emphasis — use brand tokens, not browser defaults */
+strong, b {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+em, i {
+  font-style: italic;
+  color: inherit;
+}
+
+/* Selection highlight — brand gold on dark */
+::selection {
+  background-color: rgba(212, 175, 55, 0.20);
+  color: var(--color-text-primary);
+}
+
+
+/* ============================================================================
+   3. DISPLAY ROLES — Hero and flagship headlines
+   ============================================================================ */
+
+/**
+ * .type-hero-display
+ * The cinematic opening headline — one thought, maximum presence.
+ * 
+ * Example: "History is not written. It is assembled."
+ * Usage:   <h1 class="type-hero-display">History is not written.</h1>
+ */
+.type-hero-display {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-display);
+  font-weight:    300;
+  letter-spacing: -0.02em;
+  line-height:    1.0;
+  color:          var(--color-text-primary);
+  font-style:     normal;
+
+  /* Optical margin alignment — pull the first letter to the visual edge */
+  hanging-punctuation: first last;
+
+  /* Prevent widows — final word should never dangle alone */
+  text-wrap: balance;
+}
+
+/**
+ * .type-hero-display--italic
+ * Italic variant for poetic, story-driven hero lines.
+ * Cormorant's italic is exceptionally beautiful — use deliberately.
+ * 
+ * Example: "Every dial is a canvas."
+ */
+.type-hero-display--italic {
+  composes: type-hero-display;
+  font-style: italic;
+  /* Italic at display size benefits from slightly looser tracking */
+  letter-spacing: -0.01em;
+}
+
+
+/* ============================================================================
+   4. HEADING ROLES — Semantic H1 through H5
+   ============================================================================ */
+
+/**
+ * .type-page-heading  (maps to H1)
+ * The single defining heading of each page. One per page, always.
+ * 
+ * Example: "The Heritage Collection"
+ * Usage:   <h1 class="type-page-heading">The Heritage Collection</h1>
+ */
+.type-page-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h1);
+  font-weight:    300;
+  letter-spacing: -0.02em;
+  line-height:    1.05;
+  color:          var(--color-text-primary);
+  text-wrap:      balance;
+}
+
+/**
+ * .type-section-heading  (maps to H2)
+ * Major section titles. "The Atelier" / "Our Heritage" / "The Collection"
+ * 
+ * Usage: <h2 class="type-section-heading">The Atelier</h2>
+ */
+.type-section-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h2);
+  font-weight:    400;
+  letter-spacing: 0em;
+  line-height:    1.2;
+  color:          var(--color-text-primary);
+  text-wrap:      balance;
+}
+
+/**
+ * .type-card-heading  (maps to H3)
+ * Watch names on product cards, story panel titles.
+ * 
+ * Example: "Heritage 01" / "The Chand Baori Dial"
+ * Usage:   <h3 class="type-card-heading">Heritage 01</h3>
+ */
+.type-card-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h3);
+  font-weight:    500;
+  letter-spacing: 0.02em;
+  line-height:    1.35;
+  color:          var(--color-text-primary);
+  text-wrap:      balance;
+}
+
+/**
+ * .type-sub-heading  (maps to H4)
+ * Labels inside cards, spec headers, small section dividers.
+ * Uses Cormorant for visual continuity — bridges display and UI.
+ * 
+ * Example: "Movement" / "Water Resistance" / "Case Construction"
+ * Usage:   <h4 class="type-sub-heading">Movement</h4>
+ */
+.type-sub-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h4);
+  font-weight:    500;
+  letter-spacing: 0.06em;
+  line-height:    1.35;
+  color:          var(--color-text-secondary);
+}
+
+/**
+ * .type-editorial-heading  (maps to H5)
+ * Smaller editorial headings within story content.
+ * Never use for navigation or UI.
+ * 
+ * Example: "The Craftsman's Hand" (within a scrolling story panel)
+ */
+.type-editorial-heading {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h5);
+  font-weight:    400;
+  letter-spacing: 0.02em;
+  line-height:    1.35;
+  color:          var(--color-text-primary);
+}
+
+
+/* ============================================================================
+   5. BODY ROLES — Narrative and descriptive copy
+   ============================================================================ */
+
+/**
+ * .type-narrative-lead
+ * The first paragraph of story sections and collection descriptions.
+ * Larger, looser, more spacious than standard body. Sets editorial tone.
+ * 
+ * Usage: <p class="type-narrative-lead">Every watch begins as an idea...</p>
+ */
+.type-narrative-lead {
+  font-family:    var(--font-body);
+  font-size:      1.125rem;         /* Fixed 18px — body text never scales fluid */
+  font-weight:    300;
+  letter-spacing: 0em;
+  line-height:    1.9;
+  color:          var(--color-text-secondary);
+  max-width:      var(--prose-wide); /* 72ch — wide editorial column */
+}
+
+/**
+ * .type-body
+ * Standard descriptive and narrative paragraphs.
+ * 
+ * Usage: <p class="type-body">The Heritage Collection...</p>
+ */
+.type-body {
+  font-family:    var(--font-body);
+  font-size:      0.9375rem;         /* Fixed 15px */
+  font-weight:    300;
+  letter-spacing: 0em;
+  line-height:    1.7;
+  color:          var(--color-text-secondary);
+  max-width:      var(--prose-standard); /* 60ch — optimal reading length */
+}
+
+/**
+ * .type-body--rich
+ * Body copy with slightly more contrast — used over dark glass panels.
+ */
+.type-body--rich {
+  font-weight:  400;
+  color:        var(--color-text-primary);
+}
+
+/**
+ * .type-caption
+ * Image and video caption text. Sits beneath visual assets.
+ * Never competes with the visual — must feel subordinate.
+ * 
+ * Usage: <figcaption class="type-caption">Artisan applies gold leaf...</figcaption>
+ */
+.type-caption {
+  font-family:    var(--font-body);
+  font-size:      0.875rem;   /* Fixed 14px */
+  font-weight:    400;
+  letter-spacing: 0em;
+  line-height:    1.6;
+  color:          var(--color-text-muted);
+}
+
+/**
+ * .type-caption--credit
+ * Photographer / artisan credits. Even more subtle.
+ * 
+ * Example: "Photography by Arjun Sharma, Jaipur Studio"
+ */
+.type-caption--credit {
+  font-size:      0.6875rem; /* 11px */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+  opacity:        0.7;
+}
+
+
+/* ============================================================================
+   6. UI LABEL ROLES — Navigation, buttons, tags
+   ============================================================================ */
+
+/**
+ * .type-section-label
+ * Decorative all-caps eyebrow label above major headings.
+ * Always gold. Preceded or followed by a thin rule line.
+ * 
+ * Example: "HERITAGE COLLECTION" / "THE ATELIER" / "OUR STORY"
+ * Usage:   <span class="type-section-label">Heritage Collection</span>
+ */
+.type-section-label {
+  font-family:    var(--font-body);
+  font-size:      0.6875rem;   /* 11px */
+  font-weight:    600;
+  letter-spacing: 0.25em;
+  line-height:    1.7;
+  color:          var(--color-gold-400);
+  text-transform: uppercase;
+
+  /* Compensate optical left shift from ultra-tracking */
+  margin-left:    0.25em;
+}
+
+/**
+ * .type-nav-label
+ * Primary navigation link text.
+ * 
+ * Example: "COLLECTIONS" / "HERITAGE" / "ATELIER" / "JOURNAL"
+ * Usage:   <a class="type-nav-label" href="/collections">Collections</a>
+ */
+.type-nav-label {
+  font-family:    var(--font-body);
+  font-size:      0.75rem;    /* 12px */
+  font-weight:    600;
+  letter-spacing: 0.15em;
+  line-height:    1.7;
+  color:          var(--color-text-secondary);
+  text-transform: uppercase;
+
+  transition-property: color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-luxury);
+}
+
+.type-nav-label:hover {
+  color: var(--color-gold-400);
+}
+
+/**
+ * .type-button-label
+ * CTA button text.
+ * 
+ * Example: "REQUEST CONSULTATION" / "EXPLORE COLLECTION"
+ */
+.type-button-label {
+  font-family:    var(--font-body);
+  font-size:      0.75rem;     /* 12px */
+  font-weight:    600;
+  letter-spacing: 0.15em;
+  line-height:    1;           /* Button labels need tight leading */
+  color:          var(--color-text-primary);
+  text-transform: uppercase;
+  white-space:    nowrap;
+}
+
+/**
+ * .type-tag
+ * Short inline tags: collection names, filter chips.
+ * Not all-caps — retains more personality than pure label.
+ * 
+ * Example: "Heritage" / "Gold Dial" / "Swiss Movement"
+ */
+.type-tag {
+  font-family:    var(--font-body);
+  font-size:      0.6875rem;   /* 11px */
+  font-weight:    500;
+  letter-spacing: 0.08em;
+  line-height:    1;
+  color:          var(--color-text-secondary);
+}
+
+
+/* ============================================================================
+   7. SPECIFICATION ROLES — Watch technical data
+   ============================================================================ */
+
+/**
+ * .type-spec-label
+ * Left-column attribute names in specification tables.
+ * 
+ * Example: "Movement" / "Case Diameter" / "Water Resistance"
+ * Usage:   <dt class="type-spec-label">Movement</dt>
+ */
+.type-spec-label {
+  font-family:    var(--font-body);
+  font-size:      0.75rem;    /* 12px */
+  font-weight:    600;
+  letter-spacing: 0.15em;
+  line-height:    1.6;
+  color:          var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/**
+ * .type-spec-value
+ * Right-column specification values. Primary emphasis.
+ * 
+ * Example: "Swiss ETA 2824-2" / "40mm" / "5 ATM"
+ * Usage:   <dd class="type-spec-value">Swiss ETA 2824-2</dd>
+ */
+.type-spec-value {
+  font-family:    var(--font-body);
+  font-size:      0.9375rem;  /* 15px */
+  font-weight:    400;
+  letter-spacing: 0em;
+  line-height:    1.6;
+  color:          var(--color-text-primary);
+}
+
+
+/* ============================================================================
+   8. DATA ROLES — Price, metadata, reference IDs
+   ============================================================================ */
+
+/**
+ * .type-price
+ * Watch price display. Cormorant gives price a heritage, not commercial, feel.
+ * Gold tint signals value without vulgarity.
+ * 
+ * Example: "₹2,85,000"
+ * Usage:   <span class="type-price">₹2,85,000</span>
+ */
+.type-price {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h3);  /* Fluid 20–28px */
+  font-weight:    400;
+  letter-spacing: 0.02em;
+  line-height:    1.35;
+  color:          var(--color-gold-400);
+}
+
+/**
+ * .type-price--large
+ * Price on the watch detail page — primary visual element.
+ */
+.type-price--large {
+  font-size:   var(--text-fluid-h2);  /* Fluid 24–40px */
+  font-weight: 300;
+}
+
+/**
+ * .type-metadata
+ * Dates, edition information, collection metadata.
+ * 
+ * Example: "Limited Edition · 7 Pieces" / "Est. 2024" / "Jaipur, India"
+ * Usage:   <time class="type-metadata">Limited Edition · 7 Pieces</time>
+ */
+.type-metadata {
+  font-family:    var(--font-body);
+  font-size:      0.6875rem;  /* 11px */
+  font-weight:    400;
+  letter-spacing: 0.06em;
+  line-height:    1.7;
+  color:          var(--color-text-muted);
+}
+
+/**
+ * .type-reference-id
+ * Watch model identifiers, reference numbers, technical codes.
+ * Monospace for exact character-width alignment.
+ * 
+ * Example: "HERITAGE_01" / "Ref. LVR-H01-GD-40"
+ * Usage:   <code class="type-reference-id">HERITAGE_01</code>
+ */
+.type-reference-id {
+  font-family:    var(--font-mono);
+  font-size:      0.6875rem;   /* 11px */
+  font-weight:    400;
+  letter-spacing: 0.06em;
+  line-height:    1.6;
+  color:          var(--color-text-muted);
+  background:     none;
+  border:         none;
+  padding:        0;
+}
+
+/**
+ * .type-badge
+ * Ultra-small status badges inside pill-shaped containers.
+ * 
+ * Example: "SOLD OUT" / "LIMITED" / "NEW" / "HERITAGE"
+ * Usage:   <span class="type-badge">Limited</span>
+ */
+.type-badge {
+  font-family:    var(--font-body);
+  font-size:      0.625rem;   /* 10px */
+  font-weight:    600;
+  letter-spacing: 0.15em;
+  line-height:    1;
+  color:          var(--color-gold-400);
+  text-transform: uppercase;
+}
+
+/**
+ * .type-badge--silver
+ * Silver badge variant for secondary status indicators.
+ */
+.type-badge--silver {
+  color: var(--color-silver-400);
+}
+
+
+/* ============================================================================
+   9. STORY ROLES — Pull-quotes, chapter markers, editorial narrative
+   ============================================================================ */
+
+/**
+ * .type-pull-quote
+ * Heritage story pull-quotes. The emotional centrepiece of story sections.
+ * Italic Cormorant Garamond. Maximum leading for a contemplative reading pace.
+ * 
+ * Example: "Time is not measured. It is remembered."
+ * Usage:   <blockquote class="type-pull-quote"><p>Time is not measured...</p></blockquote>
+ */
+.type-pull-quote {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-h3);  /* Fluid 20–28px */
+  font-weight:    400;
+  font-style:     italic;
+  letter-spacing: 0.02em;
+  line-height:    2.2;
+  color:          var(--color-text-primary);
+  max-width:      var(--prose-standard); /* 60ch */
+
+  /* Gold left rule — the visual signature of a pull-quote */
+  padding-left:   1.5rem;
+  border-left:    1px solid var(--color-gold-400);
+  margin:         0;
+}
+
+/**
+ * .type-pull-quote--large
+ * Larger variant for full-width cinematic story moments.
+ */
+.type-pull-quote--large {
+  font-size:   var(--text-fluid-h2); /* Fluid 24–40px */
+  line-height: 1.9;
+  max-width:   var(--prose-wide);
+  border-left: none;
+  padding-left: 0;
+
+  /* Centered, full-width block — no left rule at large sizes */
+  text-align:  center;
+}
+
+/**
+ * .type-chapter-marker
+ * Large decorative numerals that appear as background text in story sections.
+ * Extremely low contrast — a visual texture, not readable text.
+ * 
+ * Example: "01" / "02" behind each story section.
+ * Usage:   <span class="type-chapter-marker" aria-hidden="true">01</span>
+ */
+.type-chapter-marker {
+  font-family:    var(--font-display);
+  font-size:      var(--text-fluid-display);  /* Fluid 36–80px */
+  font-weight:    100;                         /* Featherlight — barely there */
+  letter-spacing: -0.02em;
+  line-height:    1;
+  color:          var(--color-ink-300);       /* Extremely muted */
+  user-select:    none;
+  pointer-events: none;
+
+  /* Chapter markers are always decorative — never announce to screen readers */
+  /* Caller must add aria-hidden="true" */
+}
+
+/**
+ * .type-story-intro
+ * The atmospheric opening paragraph of each story chapter.
+ * Slightly warmer than narrative-lead — more intimate.
+ */
+.type-story-intro {
+  font-family:    var(--font-body);
+  font-size:      1.125rem;   /* 18px */
+  font-weight:    300;
+  letter-spacing: 0em;
+  line-height:    2.0;
+  color:          var(--color-text-secondary);
+  max-width:      var(--prose-wide); /* 72ch */
+}
+
+/**
+ * .type-story-body
+ * Story section body paragraphs. Slightly looser than product body copy.
+ */
+.type-story-body {
+  font-family:    var(--font-body);
+  font-size:      0.9375rem;  /* 15px */
+  font-weight:    300;
+  letter-spacing: 0em;
+  line-height:    1.9;
+  color:          var(--color-text-secondary);
+  max-width:      var(--prose-standard); /* 60ch */
+}
+
+
+/* ============================================================================
+   10. PROSE CONTAINERS — Constrain reading-width for long-form text
+   ============================================================================ */
+
+/**
+ * .prose-tight — 45ch — Specs, short captions, sidebar content.
+ */
+.prose-tight    { max-width: var(--prose-tight); }
+
+/**
+ * .prose — 60ch — Standard body copy. Default prose container.
+ */
+.prose          { max-width: var(--prose-standard); }
+
+/**
+ * .prose-wide — 72ch — Editorial story sections.
+ */
+.prose-wide     { max-width: var(--prose-wide); }
+
+/**
+ * .prose-max — 90ch — Full-width editorial text stages only.
+ */
+.prose-max      { max-width: var(--prose-max); }
+
+/**
+ * .prose-centered — Centered prose with auto horizontal margins.
+ */
+.prose-centered {
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+
+/* ============================================================================
+   11. RESPONSIVE OVERRIDES — Mobile-specific adjustments
+   
+   Mobile typography strategy:
+   - Fluid clamp() handles most scaling automatically above.
+   - These overrides handle behavioral changes, not just size changes.
+   - GSAP pinning and scroll storytelling disable at <768px.
+   - Pull quotes collapse to simpler left-rule block at mobile.
+   ============================================================================ */
+
+@media (max-width: 767px) {
+
+  /* Pull quotes: remove centered layout on mobile, revert to left rule */
+  .type-pull-quote--large {
+    text-align:   left;
+    padding-left: 1.5rem;
+    border-left:  1px solid var(--color-gold-400);
+    max-width:    var(--prose-standard);
+  }
+
+  /* Chapter markers: reduce opacity further — less distraction on small screens */
+  .type-chapter-marker {
+    opacity: 0.3;
+  }
+
+  /* Narrative lead: tighten leading slightly on narrow viewports */
+  .type-narrative-lead {
+    line-height: 1.75;
+  }
+
+  /* Story intro: standard leading on mobile */
+  .type-story-intro {
+    line-height: 1.75;
+  }
+
+  /* Section labels: maintain full tracking — this is identity, not scaling */
+  .type-section-label {
+    letter-spacing: 0.20em; /* Reduce ultra-wide tracking slightly for mobile */
+  }
+
+  /* Prose containers are fully fluid on mobile */
+  .prose, .prose-wide, .prose-max {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 479px) {
+
+  /* Minimum mobile: ensure all display text has at least 1 line breathing */
+  .type-hero-display {
+    line-height: 1.05; /* Allow multi-line at smallest mobile sizes */
+  }
+
+  /* Price: reduce to H4 scale at smallest mobile */
+  .type-price--large {
+    font-size: var(--text-fluid-h3);
+  }
+
+}
+
+@media (min-width: 1280px) {
+
+  /* Desktop: unlock the tightest display leading */
+  .type-hero-display {
+    line-height: 0.95; /* Slightly below 1 at desktop — pure typographic block */
+  }
+
+  /* Desktop: narrative lead gets full editorial width */
+  .type-narrative-lead,
+  .type-story-intro {
+    line-height: 2.0;
+  }
+
+}
+
+@media (min-width: 1440px) {
+
+  /* Ultra-wide: story body gets full looseness */
+  .type-story-body {
+    line-height: 2.0;
+  }
+
+}
+
+
+/* ============================================================================
+   12. UTILITY MODIFIERS — Color, weight, style, alignment helpers
+   These compound with any type-* class above.
+   ============================================================================ */
+
+/* ── Color Modifiers ────────────────────────────────────────────────────── */
+.text-primary   { color: var(--color-text-primary) !important; }
+.text-secondary { color: var(--color-text-secondary) !important; }
+.text-muted     { color: var(--color-text-muted) !important; }
+.text-gold      { color: var(--color-gold-400) !important; }
+.text-silver    { color: var(--color-silver-400) !important; }
+.text-inverse   { color: var(--color-text-inverse) !important; }
+
+/* ── Weight Modifiers ───────────────────────────────────────────────────── */
+.weight-light    { font-weight: 300 !important; }
+.weight-regular  { font-weight: 400 !important; }
+.weight-medium   { font-weight: 500 !important; }
+.weight-semibold { font-weight: 600 !important; }
+.weight-bold     { font-weight: 700 !important; }
+
+/* ── Style Modifiers ────────────────────────────────────────────────────── */
+.italic   { font-style: italic !important; }
+.upright  { font-style: normal !important; }
+
+/* ── Alignment Modifiers ────────────────────────────────────────────────── */
+.text-left    { text-align: left; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+
+/* ── Decorative Enhancements ────────────────────────────────────────────── */
+
+/**
+ * .text-gradient-gold
+ * Applies the gold metallic gradient as a text fill.
+ * Use for a single highlighted word, never full sentences.
+ * 
+ * Example: <span class="type-hero-display text-gradient-gold">LEVORA</span>
+ */
+.text-gradient-gold {
+  background:              var(--gradient-gold-metallic);
+  background-clip:         text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color:                   transparent;
+}
+
+/**
+ * .text-gradient-silver
+ * Silver metallic text fill — for secondary metallic moments.
+ */
+.text-gradient-silver {
+  background:              var(--gradient-silver-metallic);
+  background-clip:         text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color:                   transparent;
+}
+
+/**
+ * .text-balance
+ * Forces text-wrap balance. Use on headings that might break awkwardly.
+ * Already applied to most type-* heading classes by default.
+ */
+.text-balance { text-wrap: balance; }
+
+/**
+ * .text-pretty
+ * Reduces typographic widows in longer body paragraphs.
+ * Use on .type-body and .type-narrative-lead when needed.
+ */
+.text-pretty { text-wrap: pretty; }
+
+/**
+ * .sr-only — Screen reader only text (accessible hidden labels)
+ * Placed here for proximity to decorative type usage (chapter markers, etc.)
+ */
+.sr-only {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  padding:  0;
+  margin:   -1px;
+  overflow: hidden;
+  clip:     rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border:   0;
+}
