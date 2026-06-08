@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./typography.css";
+@import "./layout.css";
 
 /* ============================================================================
    LEVORA DESIGN TOKEN SYSTEM
@@ -146,6 +148,15 @@
   /* Cormorant Garamond */
   --font-body: var(--font-body), "system-ui", sans-serif;
   /* Outfit            */
+  --font-mono: 'ui-monospace', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ── Fluid Font Sizes ───────────────────────────────────────────────────── */
+  --text-fluid-display: clamp(2.25rem, 1.023rem + 5.231vw, 5rem);
+  --text-fluid-h1:      clamp(2rem,    0.923rem + 4.615vw, 4.5rem);
+  --text-fluid-h2:      clamp(1.5rem,  1.077rem + 1.846vw, 2.5rem);
+  --text-fluid-h3:      clamp(1.25rem, 1.038rem + 0.923vw, 1.75rem);
+  --text-fluid-h4:      clamp(1.0625rem, 0.929rem + 0.577vw, 1.375rem);
+  --text-fluid-h5:      clamp(1rem,    0.946rem + 0.231vw, 1.125rem);
 
   /* ── Font Sizes ─────────────────────────────────────────────────────────── */
   /* Based on a Major Third scale (1.250) anchored at 1rem (16px).            */
@@ -202,6 +213,12 @@
   /* Comfortable reading for body copy                   */
   --leading-loose: 2.0;
   /* Spacious for luxury narrative text sections          */
+
+  /* ── Prose Reading Widths ───────────────────────────────────────────────── */
+  --prose-tight:    45ch;
+  --prose-standard: 60ch;
+  --prose-wide:     72ch;
+  --prose-max:      90ch;
 
   /* ==========================================================================
      3. SPACING
@@ -579,9 +596,7 @@ p {
 }
 
 /* Gold text highlight — price, featured label */
-.text-gold {
-  color: var(--color-text-gold);
-}
+/* Deprecated: .text-gold duplicate removed, using typography.css modifier instead */
 
 /* ── Shadow Utility Classes ─────────────────────────────────────────────── */
 .shadow-gold-glow-sm {
