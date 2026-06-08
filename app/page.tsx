@@ -135,10 +135,11 @@ export default function HomePage() {
           >
             <h1
               id="threshold-heading"
+              className="type-hero-display"
             >
               {BRAND_IDENTITY.headline}
             </h1>
-            <p aria-label="Brand tagline">
+            <p aria-label="Brand tagline" className="type-narrative-lead">
               {BRAND_IDENTITY.tagline}
             </p>
           </div>
@@ -169,11 +170,12 @@ export default function HomePage() {
         >
           <h2
             id="dial-revelation-heading"
+            className="type-section-heading"
           >
             The Anatomy of a Dial
           </h2>
 
-          <p aria-label="Dial revelation description">
+          <p aria-label="Dial revelation description" className="type-body">
             Every layer of the {WATCH_PLACEHOLDERS.HERITAGE_01.defaultName} is a
             deliberate act of craftsmanship.
           </p>
@@ -202,11 +204,12 @@ export default function HomePage() {
         >
           <h2
             id="chronology-heading"
+            className="type-section-heading"
           >
             Chronology of Dynasties
           </h2>
 
-          <p aria-label="Chronology description">
+          <p aria-label="Chronology description" className="type-body">
             Seven eras. Seven art forms. Seven timepieces.
           </p>
 
@@ -231,6 +234,7 @@ export default function HomePage() {
         >
           <h2
             id="atelier-heading"
+            className="type-section-heading"
           >
             The Atelier
           </h2>
@@ -256,13 +260,13 @@ export default function HomePage() {
                   data-placeholder={`atelier-image-${index}`}
                   role="presentation"
                 >
-                  <span>[ Atelier image {index + 1} placeholder ]</span>
+                   <span className="type-metadata">[ Atelier image {index + 1} placeholder ]</span>
                 </div>
 
                 {/* Spec panel */}
                 <div aria-label="Craftsmanship specification">
-                  <h3>{philosophy.title}</h3>
-                  <p>{philosophy.description}</p>
+                  <h3 className="type-card-heading">{philosophy.title}</h3>
+                  <p className="type-body">{philosophy.description}</p>
                 </div>
               </div>
             ))}
@@ -281,11 +285,12 @@ export default function HomePage() {
         >
           <h2
             id="collection-heading"
+            className="type-section-heading"
           >
             Heritage Collection
           </h2>
 
-          <p aria-label="Collection description">
+          <p aria-label="Collection description" className="type-body">
             Seven timepieces. Each a strictly numbered edition.
           </p>
 
@@ -325,18 +330,19 @@ export default function HomePage() {
           <GlassCard ariaLabel="Private salon invitation">
             <h2
               id="salon-heading"
+              className="type-section-heading"
             >
               The Private Salon
             </h2>
 
-            <p aria-label="Salon invitation copy">
+            <p aria-label="Salon invitation copy" className="type-narrative-lead">
               By Invitation. Request a private showing with a Levora horology specialist.
             </p>
 
             <address aria-label="Levora salon address">
-              <span>{SALON_CONTACT_INFO.address.salonName}</span>
-              <span>{SALON_CONTACT_INFO.address.city}, {SALON_CONTACT_INFO.address.state}</span>
-              <span>{SALON_CONTACT_INFO.supportHours}</span>
+              <span className="type-body">{SALON_CONTACT_INFO.address.salonName}</span>
+              <span className="type-body">{SALON_CONTACT_INFO.address.city}, {SALON_CONTACT_INFO.address.state}</span>
+              <span className="type-metadata">{SALON_CONTACT_INFO.supportHours}</span>
             </address>
 
             {/*
@@ -365,7 +371,7 @@ export default function HomePage() {
               aria-modal="true"
               aria-labelledby="concierge-modal-heading"
             >
-              <h2 id="concierge-modal-heading">
+              <h2 id="concierge-modal-heading" className="type-section-heading">
                 Request a Private Consultation
               </h2>
               {/* InquiryForm added in Sprint 2 full build */}
