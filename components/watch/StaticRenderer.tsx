@@ -2,14 +2,24 @@
  * @file components/watch/StaticRenderer.tsx
  * @description Static dial image card for the Collection section (Section 05).
  *
- * Sprint 2 scaffold — structural only. No styling.
+ * Sprint 2C Phase 4 — Layout Foundation.
  *
- * Renders a <figure> with a placeholder image region and a <figcaption>
- * showing the watch name and tagline. An explore link points to the
- * watch's collection detail page.
+ * Renders a <figure> with:
+ *   - A 3:4 aspect-ratio image placeholder region with ambient gold glow
+ *   - A <figcaption> with watch metadata: reference ID, name, tagline, CTA
+ *   - Active/inactive visual states (opacity + scale)
  *
- * Next.js <Image> will replace the placeholder div in the Sprint 2
- * full implementation once dial render assets are available.
+ * Design tokens used:
+ *   --color-void-400     (card bg, image placeholder bg)
+ *   --gradient-gold-glow (ambient glow behind dial image)
+ *   --gradient-card-sheen (top-edge card highlight)
+ *   --color-ink-100      (card border)
+ *   --radius-lg          (image region), --radius-xl (card)
+ *   --shadow-raised / --shadow-gold-sm (card elevation)
+ *   --duration-slow, --ease-luxury (transitions)
+ *
+ * Active state: full opacity, scale 1.
+ * Inactive state: opacity-50, scale-95, no hover.
  *
  * Data dependency (Sprint 3):
  *   Watch type from types/watch.ts — name, tagline, slug, assets.primary
@@ -48,34 +58,115 @@ export default function StaticRenderer({
       aria-label={`${watchName} — ${tagline}`}
       data-watch-id={watchId}
       data-active={isActive}
+      style={{
+        margin: 0,
+        backgroundColor: "var(--color-void-400)",
+        border: "0.5px solid var(--color-ink-100)",
+        borderRadius: "var(--radius-xl)",
+        overflow: "hidden",
+        boxShadow: isActive ? "var(--shadow-raised)" : "none",
+        opacity: isActive ? 1 : 0.5,
+        transform: isActive ? "scale(1)" : "scale(0.95)",
+        transition: `opacity var(--duration-slow) var(--ease-luxury),
+                     transform var(--duration-slow) var(--ease-luxury),
+                     box-shadow var(--duration-slow) var(--ease-luxury)`,
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+      }}
     >
       {/*
-       * Image region placeholder.
+       * Image region placeholder — aspect-ratio 3:4 (portrait).
        * Sprint 2 full build: replace with Next.js <Image> using
        *   src={watch.assets.primary.url}
-       *   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+       *   sizes="(max-width: 768px) 90vw, 320px"
        *   alt={watchName}
        */}
       <div
         aria-hidden="true"
         data-placeholder={`watch-image-${watchId}`}
         role="presentation"
+        style={{
+          aspectRatio: "3 / 4",
+          backgroundColor: "var(--color-void-400)",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
       >
-        <span>[ {watchId} dial image placeholder ]</span>
+        {/* Ambient gold glow behind the watch dial */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "var(--gradient-gold-glow)",
+            pointerEvents: "none",
+          }}
+        />
+        {/* Placeholder label — removed in Sprint 3 once real assets arrive */}
+        <span
+          className="type-reference-id"
+          style={{
+            position: "relative",
+            zIndex: 1,
+            color: "var(--color-text-muted)",
+          }}
+        >
+          {watchId}
+        </span>
       </div>
 
-      {/* Watch metadata overlay */}
-      <figcaption>
-        <h3>{watchName}</h3>
-        <p>{tagline}</p>
+      {/* Watch metadata */}
+      <figcaption
+        style={{
+          padding: "1.25rem 1.5rem 1.5rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.5rem",
+        }}
+      >
+        {/* Reference ID */}
+        <code className="type-reference-id">{watchId}</code>
+
+        {/* Watch name */}
+        <h3
+          className="type-card-heading"
+          style={{ margin: 0 }}
+        >
+          {watchName}
+        </h3>
+
+        {/* Tagline */}
+        <p
+          className="type-body"
+          style={{ margin: 0, maxWidth: "none" }}
+        >
+          {tagline}
+        </p>
 
         {/* Explore CTA — links to collection detail page */}
-        <Link
-          href={`/collections/heritage/${slug}`}
-          aria-label={`Explore ${watchName}`}
-        >
-          Explore
-        </Link>
+        <div style={{ marginTop: "1rem" }}>
+          <Link
+            href={`/collections/heritage/${slug}`}
+            aria-label={`Explore ${watchName}`}
+            className="type-button-label"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              textDecoration: "none",
+              color: "var(--color-text-secondary)",
+              padding: "0.75rem 0",
+              minHeight: "48px",
+              transition: `color var(--duration-fast) var(--ease-luxury)`,
+            }}
+          >
+            Explore →
+          </Link>
+        </div>
       </figcaption>
     </figure>
   );

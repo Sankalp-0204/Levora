@@ -52,7 +52,7 @@ export default function RootLayout({
       // from globals.css. The antialiased class ensures sub-pixel rendering.
       className={`${cormorantGaramond.variable} ${outfit.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-void-200 text-text-primary">
+      <body className="min-h-dvh flex flex-col bg-void-200 text-text-primary">
         {/*
          * Header and Footer are persistent — they do not remount on
          * client-side navigation between routes.
