@@ -39,6 +39,8 @@ interface WatchContainerProps {
   renderType?: RenderType;
   /** Whether this is the active card in the Collection slider */
   isActive?: boolean;
+  /** Purchase routing strategy for the watch card CTA */
+  checkoutType?: "concierge_inquiry" | "direct_checkout";
 }
 
 export default function WatchContainer({
@@ -48,6 +50,7 @@ export default function WatchContainer({
   slug,
   renderType = "static",
   isActive = false,
+  checkoutType = "concierge_inquiry",
 }: WatchContainerProps) {
   /**
    * Sprint 2: renderType is logged as a data attribute for future
@@ -68,6 +71,7 @@ export default function WatchContainer({
         tagline={tagline}
         slug={slug}
         isActive={isActive}
+        checkoutType={checkoutType}
       />
     </div>
   );

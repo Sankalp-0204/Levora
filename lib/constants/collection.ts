@@ -107,3 +107,41 @@ export const WATCH_PLACEHOLDERS: Record<HeritageWatchId, StaticWatchPlaceholder>
 export const ORDERED_WATCH_PLACEHOLDERS = Object.values(WATCH_PLACEHOLDERS).sort(
   (a, b) => a.order - b.order
 );
+
+/** Static metadata for the Signature Collection. */
+export const SIGNATURE_COLLECTION_METADATA: StaticCollectionMetadata = {
+  id: "signature",
+  name: "Signature Collection",
+  slug: "signature",
+  tagline: "Accessible Luxury, Delivered.",
+  description: "A contemporary collection designed for seamless direct acquisition.",
+  primaryColor: "#E5E7EB", // Silver/Platinum Accent
+  backgroundColor: "#111827", // Cool Slate
+} as const;
+
+/**
+ * Mapping configuration for Signature placeholder watches.
+ */
+export const SIGNATURE_WATCH_PLACEHOLDERS: Record<string, StaticWatchPlaceholder> = {
+  SIGNATURE_01: {
+    id: "SIGNATURE_01" as HeritageWatchId, // Cast to avoid type error
+    slug: "signature-01",
+    defaultName: "SIGNATURE_01",
+    tagline: "SIGNATURE_01_INSPIRATION",
+    defaultPrice: 12500000, // ₹1,25,000.00
+    order: 1,
+  },
+  SIGNATURE_02: {
+    id: "SIGNATURE_02" as HeritageWatchId,
+    slug: "signature-02",
+    defaultName: "SIGNATURE_02",
+    tagline: "SIGNATURE_02_INSPIRATION",
+    defaultPrice: 14500000, // ₹1,45,000.00
+    order: 2,
+  },
+} as const;
+
+/** List of all Signature placeholders ordered by index. */
+export const ORDERED_SIGNATURE_WATCH_PLACEHOLDERS = Object.values(SIGNATURE_WATCH_PLACEHOLDERS).sort(
+  (a, b) => a.order - b.order
+);

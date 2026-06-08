@@ -28,7 +28,7 @@ interface ButtonProps {
   /** Accessible label — required when button contains only an icon */
   "aria-label"?: string;
   /** Visual variant — styling applied in Sprint 2 full build */
-  variant?: "primary" | "ghost" | "outline";
+  variant?: "primary" | "ghost" | "outline" | "action";
   /** Whether the button action is currently loading */
   disabled?: boolean;
   /** Optional additional class names */

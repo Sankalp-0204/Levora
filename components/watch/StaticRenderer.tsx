@@ -31,6 +31,8 @@ interface StaticRendererProps {
    * Active card renders at full opacity; inactive cards are de-emphasized.
    */
   isActive?: boolean;
+  /** Purchase routing strategy for the watch card CTA */
+  checkoutType?: "concierge_inquiry" | "direct_checkout";
 }
 
 export default function StaticRenderer({
@@ -39,6 +41,7 @@ export default function StaticRenderer({
   tagline,
   slug,
   isActive = false,
+  checkoutType = "concierge_inquiry",
 }: StaticRendererProps) {
   return (
     <figure
