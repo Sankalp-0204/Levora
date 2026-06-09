@@ -2,7 +2,7 @@
  * @file app/page.tsx
  * @description Levora homepage — Server Component.
  *
- * Sprint 2C Phase 4 — Layout Foundation.
+ * Sprint 2C Phase 5 — Collection Experience.
  *
  * Container system applied to all sections via layout.css utilities:
  *   .container-bleed  — full-width, no padding (hero, full-bleed sections)
@@ -45,17 +45,13 @@ import {
   getOrganizationJsonLd,
 } from "@/lib/constants/seo";
 import { BRAND_IDENTITY, BRAND_PHILOSOPHIES } from "@/lib/constants/brand";
-import {
-  WATCH_PLACEHOLDERS,
-  ORDERED_WATCH_PLACEHOLDERS,
-} from "@/lib/constants/collection";
+import { WATCH_PLACEHOLDERS } from "@/lib/constants/collection";
 import { SALON_CONTACT_INFO } from "@/lib/constants/contact";
 
 import DynamicVideo from "@/components/story/DynamicVideo";
 import LayeredRenderer from "@/components/watch/LayeredRenderer";
 import StoryScroller from "@/components/story/StoryScroller";
-import WatchContainer from "@/components/watch/WatchContainer";
-import Slider from "@/components/ui/Slider";
+import CollectionSection from "@/components/ui/CollectionSection";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 
@@ -496,6 +492,9 @@ export default function HomePage() {
             SECTION 05 — THE COLLECTION
             Viewport: auto | Container: .container-stage
             Padding: .section-pad-md
+
+            Sprint 2C Phase 5: CollectionSection client component owns
+            tier toggle state and renders Heritage / Signature sliders.
             ════════════════════════════════════════════════════════ */}
         <section
           id="collection"
@@ -504,13 +503,17 @@ export default function HomePage() {
           className="section-pad-md"
           style={{ backgroundColor: "var(--color-void-300)" }}
         >
+          {/* Section header */}
           <div
             className="container-stage"
             style={{ marginBottom: "2.5rem" }}
           >
             {/* Section eyebrow */}
-            <span className="type-section-label" style={{ display: "block", marginBottom: "1rem" }}>
-              Heritage Collection
+            <span
+              className="type-section-label"
+              style={{ display: "block", marginBottom: "1rem" }}
+            >
+              The Collection
             </span>
 
             <h2
@@ -518,31 +521,22 @@ export default function HomePage() {
               className="type-section-heading"
               style={{ marginBottom: "1rem" }}
             >
-              Heritage Collection
+              The Collection
             </h2>
 
             <p aria-label="Collection description" className="type-body">
-              Seven timepieces. Each a strictly numbered edition.
+              Seven numbered Heritage editions. A Signature line coming soon.
             </p>
           </div>
 
           {/*
-           * Slider: drag-enabled carousel wrapping WatchContainer cards.
-           * Sprint 3: active card tracking, scroll-snap, drag gesture.
+           * CollectionSection: client component.
+           * Owns tier toggle state (heritage | signature).
+           * Heritage slider  → 7 Heritage watches, concierge CTA.
+           * Signature slider → Coming Soon cards, no commerce logic.
+           * Sprint 3: wires live Firestore data + ConciergeInquiryModal.
            */}
-          <Slider ariaLabel="Heritage Collection — seven limited edition timepieces">
-            {ORDERED_WATCH_PLACEHOLDERS.map((watch, index) => (
-              <WatchContainer
-                key={watch.id}
-                watchId={watch.id}
-                watchName={watch.defaultName}
-                tagline={watch.tagline}
-                slug={watch.slug}
-                renderType="static"
-                isActive={index === 0}
-              />
-            ))}
-          </Slider>
+          <CollectionSection />
         </section>
 
         {/* ════════════════════════════════════════════════════════════
