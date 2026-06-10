@@ -29,9 +29,12 @@ export const colors = {
     100: "#F6EDB9",
     200: "#ECD473",
     300: "#E2BA39",
-    400: "#D4AF37", // PRIMARY GOLD ACCENT
+    400: "#C9A227", // PRIMARY GOLD ACCENT — burnished amber (Phase 7)
     500: "#B79325",
     600: "#98761A",
+    // Phase 7: Extended gold hierarchy
+    raw: "#A37B16",        // 22k unfinished gold leaf — Atelier hairlines
+    parchment: "#EDD990", // Parchment highlight — dialTransformation text
   },
   silver: {
     50: "#FFFFFF",
@@ -41,27 +44,50 @@ export const colors = {
     400: "#CCCCCC", // PRIMARY SILVER ACCENT
     500: "#999999",
     600: "#777777",
+    // Phase 7: Extended silver roles
+    movement: "#ACAEB4", // Rhodium-plated movement — reference IDs, indexes
+    dial: "#D6D7DA",     // Silver-finish dial — craftDetail, movement panel
   },
   void: {
     "000": "#000000",
     50: "#050505",
     100: "#0A0A0A",
-    200: "#0D0E11",
-    300: "#121217",
+    200: "#0E0C0B", // Phase 7: Atelier Black — warm charcoal primary bg
+    300: "#130F0B", // Phase 7: Chronology Stone — terracotta charcoal
     400: "#14161E",
     500: "#1C1E28",
   },
+  // Phase 7: Section-specific atmospheric surfaces
+  surface: {
+    vault: "#0E0C0B",   // Threshold, Atelier, Salon — warm gold-vault dark
+    stone: "#130F0B",   // Chronology — Rajput fort interior at night
+    cabinet: "#0C0D12", // Collection — midnight felt watch cabinet
+    raised: "#170F0C",  // Era cards, glass panels — lacquered surface
+  },
+  ruleWarm: "#231D19", // Warm charcoal dividers — material edge, not grey line
   ink: {
     100: "#212128",
     200: "#2A2B36",
     300: "#363744",
   },
   text: {
-    primary: "#FCFBF9",
-    secondary: "#9F9F9F",
-    muted: "#626262",
-    gold: "#D4AF37",
+    primary: "#F5EFE4",   // Phase 7: Warm Ivory — aged cream paper
+    secondary: "#9A9189", // Phase 7: Warm Ash — ash from wood fire
+    muted: "#5E574F",     // Phase 7: Antique Lead — heavy, warm, aged
+    gold: "#C9A227",
     inverse: "#050505",
+  },
+  // Phase 7: Heritage pigment colors — Chronology section only
+  heritage: {
+    verdigris: "#435C53",  // Aged copper bell patina — eraPeriod text
+    sindoor: "#5C352A",    // Aged vermilion — micro-accent on selected card
+    sandstone: "#8C6B42", // Agra red sandstone — artworkSubtitle text
+  },
+  // Phase 7: Atelier material colors
+  atelier: {
+    linen: "#1C1710",  // Raw unbleached linen — image region background
+    brass: "#6F5930",  // Aged brass movement plate — Atelier dividers
+    craft: "#736055",  // Dark terracotta clay — craft detail text
   },
   state: {
     success: "#4CAF7D",
@@ -224,9 +250,9 @@ export const shadows = {
 
 export const glass = {
   dark: {
-    background: "rgba(13, 14, 17, 0.60)",
+    background: "rgba(23, 15, 12, 0.65)",  // Phase 7: warm lacquer surface
     blur: "20px",
-    border: "0.5px solid rgba(255, 255, 255, 0.05)",
+    border: "0.5px solid rgba(255, 248, 235, 0.06)", // Phase 7: warm parchment white
     shadow: shadows.float,
   },
   gold: {

@@ -4,9 +4,9 @@
  * @file components/layout/Header.tsx
  * @description Global site header for Levora.
  *
- * Sprint 2C Phase 4 — Layout Foundation.
+ * Sprint 2C Phase 8 — GSAP Motion Architecture.
  *
- * Single-state: header is always transparent with no scroll-aware class changes.
+ * Scroll-aware: GSAP hides header on scroll-down, reveals on scroll-up.
  * Mobile navigation uses a hamburger button that opens a slide-over drawer.
  *
  * Marked "use client" because the mobile drawer requires useState.
@@ -18,13 +18,26 @@
  * GSAP integration point: data-gsap="header" reserved for Sprint 3.
  */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { HEADER_NAV_LINKS } from "@/lib/constants/navigation";
 import { BRAND_IDENTITY } from "@/lib/constants/brand";
+import { useGsap } from "@/hooks/useGsap";
+import { createHeaderScroll } from "@/lib/gsap/headerScroll";
 
 export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  useGsap(
+    () => {
+      if (headerRef.current) {
+        createHeaderScroll(headerRef.current);
+      }
+    },
+    [],
+    headerRef,
+  );
 
   function openDrawer() {
     setDrawerOpen(true);
@@ -41,6 +54,7 @@ export default function Header() {
     <>
       {/* ── Site Header ─────────────────────────────────────────────── */}
       <header
+        ref={headerRef}
         id="site-header"
         role="banner"
         aria-label="Levora site header"

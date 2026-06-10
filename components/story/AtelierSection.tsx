@@ -1,10 +1,12 @@
+"use client";
+
 /**
  * @file components/story/AtelierSection.tsx
  * @description Section 04 — The Atelier editorial grid.
  *
- * Sprint 2C Phase 6 — Atelier + Chronology Experience.
+ * Sprint 2C Phase 8 — GSAP Motion Architecture.
  *
- * Server Component — no "use client" directive.
+ * Client Component — "use client" required for GSAP lifecycle hook.
  * Renders 5 craft dimension panels from ATELIER_DIMENSIONS (lib/constants/brand.ts).
  *
  * Each panel is an editorial pairing of:
@@ -39,11 +41,27 @@
  *   <Image fill> with the same container — zero structural change required.
  */
 
+import { useRef } from "react";
 import { ATELIER_DIMENSIONS } from "@/lib/constants/brand";
+import { useGsap } from "@/hooks/useGsap";
+import { createAtelierReveal } from "@/lib/gsap/atelierReveal";
 
 export default function AtelierSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGsap(
+    () => {
+      if (containerRef.current) {
+        createAtelierReveal(containerRef.current);
+      }
+    },
+    [],
+    containerRef,
+  );
+
   return (
     <div
+      ref={containerRef}
       aria-label="Craftsmanship showcase"
       data-atelier-grid="true"
       className="atelier-grid"
@@ -103,7 +121,7 @@ export default function AtelierSection() {
                 bottom: "1rem",
                 left: "1.25rem",
                 zIndex: 1,
-                color: "rgba(212, 175, 55, 0.55)",
+                color: "var(--color-atelier-brass)",
                 letterSpacing: "0.15em",
                 fontSize: "0.6875rem",
                 fontFamily: "var(--font-body)",
@@ -132,7 +150,10 @@ export default function AtelierSection() {
             }}
           >
             {/* Sequential craft eyebrow — "Craft 01" through "Craft 05" */}
-            <span className="type-section-label">
+            <span
+              className="type-section-label"
+              style={{ color: "var(--color-silver-movement)" }}
+            >
               Craft {String(index + 1).padStart(2, "0")}
             </span>
 

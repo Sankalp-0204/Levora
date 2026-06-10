@@ -1,10 +1,12 @@
+"use client";
+
 /**
  * @file components/story/StoryScroller.tsx
  * @description Chronology of Dynasties — Section 03.
  *
- * Sprint 2C Phase 6 — Atelier + Chronology Experience.
+ * Sprint 2C Phase 8 — GSAP Motion Architecture.
  *
- * Server Component — no "use client" directive.
+ * Client Component — "use client" required for GSAP lifecycle hook.
  *
  * Each era card tells a 4-part story arc:
  *   Part 1: The Artwork    — artworkTitle (h3) + artworkSubtitle (italic)
@@ -24,7 +26,8 @@
  * Layout:
  *   Mobile  (<768px):  vertical flex stack, full-width cards, gold left-rule.
  *   Desktop (≥768px): horizontal flex track, 360px cards, gold top-rule.
- *                     Native overflow-x: auto scroll. No GSAP in Phase 6.
+ *                     GSAP ScrollTrigger pins section and drives horizontal pan.
+ *                     Native overflow-x disabled — GSAP owns the movement.
  *
  * GSAP integration points (Sprint 3):
  *   data-gsap="chronology-scroll"     — outer wrapper, lib/gsap/chronologyScroll.ts
@@ -42,11 +45,27 @@
  *   as visible content even if a field is undefined.
  */
 
+import { useRef } from "react";
 import { ORDERED_WATCH_PLACEHOLDERS } from "@/lib/constants/collection";
+import { useGsap } from "@/hooks/useGsap";
+import { createChronologyScroll } from "@/lib/gsap/chronologyScroll";
 
 export default function StoryScroller() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGsap(
+    () => {
+      if (containerRef.current) {
+        createChronologyScroll(containerRef.current);
+      }
+    },
+    [],
+    containerRef,
+  );
+
   return (
     <div
+      ref={containerRef}
       aria-label="Chronology of Dynasties — heritage timeline"
       data-gsap="chronology-scroll"
       style={{ position: "relative" }}
@@ -110,7 +129,7 @@ export default function StoryScroller() {
               <span
                 className="type-reference-id"
                 aria-hidden="true"
-                style={{ color: "var(--color-text-muted)" }}
+                style={{ color: "var(--color-silver-movement)" }}
               >
                 {watch.id}
               </span>
@@ -129,7 +148,7 @@ export default function StoryScroller() {
                   className="type-metadata"
                   style={{
                     fontStyle: "italic",
-                    color: "var(--color-text-muted)",
+                    color: "var(--color-heritage-sandstone)",
                     marginTop: "-0.5rem",
                   }}
                 >
@@ -162,7 +181,7 @@ export default function StoryScroller() {
                     width: "72px",
                     height: "72px",
                     borderRadius: "50%",
-                    border: "0.5px solid rgba(212, 175, 55, 0.20)",
+                    border: "0.5px solid rgba(201, 162, 39, 0.22)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -170,7 +189,7 @@ export default function StoryScroller() {
                     flexShrink: 0,
                     /* Ambient radial glow — the ghost of the dial beneath */
                     background:
-                      "radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)",
+                      "radial-gradient(circle, rgba(201,162,39,0.05) 0%, transparent 70%)",
                   }}
                 >
                   {/* Inner ring — second concentric circle */}
@@ -180,7 +199,7 @@ export default function StoryScroller() {
                       width: "36px",
                       height: "36px",
                       borderRadius: "50%",
-                      border: "0.5px solid rgba(212, 175, 55, 0.12)",
+                      border: "0.5px solid rgba(201, 162, 39, 0.14)",
                       flexShrink: 0,
                     }}
                   />
@@ -191,7 +210,7 @@ export default function StoryScroller() {
                   <span
                     className="type-metadata"
                     style={{
-                      color: "rgba(212, 175, 55, 0.55)",
+                      color: "var(--color-heritage-verdigris)",
                       textAlign: "center",
                       letterSpacing: "0.08em",
                     }}
@@ -223,8 +242,8 @@ export default function StoryScroller() {
                 style={{
                   width: "2rem",
                   height: "1px",
-                  backgroundColor: "var(--color-gold-400)",
-                  opacity: 0.4,
+                  backgroundColor: "var(--color-gold-parchment)",
+                  opacity: 0.35,
                   flexShrink: 0,
                 }}
               />
@@ -285,11 +304,12 @@ export default function StoryScroller() {
           .era-card {
             width: 360px !important;
             border-left: none !important;
-            border-top: 2px solid var(--color-gold-400) !important;
+            border-top: 2px solid var(--color-gold-raw) !important;
           }
           .chronology-clip {
-            overflow-x: auto !important;
-            /* Hide scrollbar — desktop horizontal scroll is passive */
+            overflow-x: hidden !important;
+            /* GSAP ScrollTrigger owns horizontal movement on desktop.
+               Native scroll disabled to prevent double-scrolling. */
             scrollbar-width: none;
             -ms-overflow-style: none;
           }

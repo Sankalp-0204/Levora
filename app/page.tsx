@@ -55,6 +55,8 @@ import AtelierSection from "@/components/story/AtelierSection";
 import CollectionSection from "@/components/ui/CollectionSection";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
+import ThresholdEntrance from "@/components/story/ThresholdEntrance";
+import CollectionEntrance from "@/components/ui/CollectionEntrance";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SEO METADATA
@@ -139,14 +141,15 @@ export default function HomePage() {
             paddingTop: "var(--nav-height-default)",
           }}
         >
-          {/*
-           * DynamicVideo: absolute-positioned behind all content.
-           * src and posterSrc will be supplied once video assets are available.
-           * GSAP integration: data-gsap="threshold-video" in DynamicVideo.tsx
-           */}
-          <DynamicVideo
-            accessibleLabel="An ambient video showing light moving across handcrafted watch materials, evoking Indian heritage and horological craftsmanship."
-          />
+          <ThresholdEntrance>
+            {/*
+             * DynamicVideo: absolute-positioned behind all content.
+             * src and posterSrc will be supplied once video assets are available.
+             * GSAP integration: data-gsap="threshold-video" in DynamicVideo.tsx
+             */}
+            <DynamicVideo
+              accessibleLabel="An ambient video showing light moving across handcrafted watch materials, evoking Indian heritage and horological craftsmanship."
+            />
 
           {/*
            * Hero content — sits above the video overlay (z-index: 1).
@@ -211,7 +214,11 @@ export default function HomePage() {
               }}
             >
               {/* Section eyebrow */}
-              <span className="type-section-label" aria-hidden="true">
+              <span 
+                className="type-section-label gsap-hidden" 
+                aria-hidden="true"
+                data-gsap-entrance="eyebrow"
+              >
                 Heritage · Horology · India
               </span>
 
@@ -221,12 +228,24 @@ export default function HomePage() {
                 className="type-hero-display"
                 style={{ margin: 0 }}
               >
-                {BRAND_IDENTITY.headline}
+                {BRAND_IDENTITY.headline.split(" ").map((word, i, arr) => (
+                  <span key={i} style={{ whiteSpace: "nowrap" }}>
+                    <span
+                      data-gsap-entrance="word"
+                      className="gsap-hidden"
+                      style={{ display: "inline-block" }}
+                    >
+                      {word}
+                    </span>
+                    {i < arr.length - 1 ? " " : ""}
+                  </span>
+                ))}
               </h1>
 
               <p
                 aria-label="Brand tagline"
-                className="type-narrative-lead prose-centered"
+                className="type-narrative-lead prose-centered gsap-hidden"
+                data-gsap-entrance="tagline"
                 style={{ textAlign: "center" }}
               >
                 {BRAND_IDENTITY.tagline}
@@ -237,6 +256,7 @@ export default function HomePage() {
                 aria-label="Scroll to explore"
                 aria-hidden="true"
                 data-scroll-indicator="true"
+                className="gsap-hidden"
                 role="presentation"
                 style={{
                   marginTop: "2rem",
@@ -264,6 +284,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+          </ThresholdEntrance>
         </section>
 
         {/* ════════════════════════════════════════════════════════════
@@ -277,7 +298,7 @@ export default function HomePage() {
           data-section="dial-revelation"
           data-gsap-section="02"
           className="section-pad-xl"
-          style={{ backgroundColor: "var(--color-void-200)" }}
+          style={{ backgroundColor: "var(--color-surface-vault)" }}
         >
           <div className="container-stage">
             {/* Section eyebrow */}
@@ -322,7 +343,7 @@ export default function HomePage() {
           data-gsap-section="03"
           className="section-pad-lg"
           style={{
-            backgroundColor: "var(--color-void-300)",
+            backgroundColor: "var(--color-surface-stone)",
             overflow: "hidden",
           }}
         >
@@ -363,7 +384,7 @@ export default function HomePage() {
           data-section="atelier"
           data-gsap-section="04"
           className="section-pad-lg"
-          style={{ backgroundColor: "var(--color-void-200)" }}
+          style={{ backgroundColor: "var(--color-surface-vault)" }}
         >
           {/*
            * container-stage (1440px max) — upgraded from container-content (1280px).
@@ -407,14 +428,16 @@ export default function HomePage() {
           aria-labelledby="collection-heading"
           data-section="collection"
           className="section-pad-md"
-          style={{ backgroundColor: "var(--color-void-300)" }}
+          style={{ backgroundColor: "var(--color-surface-cabinet)" }}
         >
-          {/* Section header */}
-          <div
-            className="container-stage"
-            style={{ marginBottom: "2.5rem" }}
-          >
-            {/* Section eyebrow */}
+          <CollectionEntrance>
+            {/* Section header */}
+            <div
+              className="container-stage gsap-hidden"
+              data-gsap-entrance="collection-heading"
+              style={{ marginBottom: "2.5rem" }}
+            >
+              {/* Section eyebrow */}
             <span
               className="type-section-label"
               style={{ display: "block", marginBottom: "1rem" }}
@@ -435,14 +458,17 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/*
-           * CollectionSection: client component.
-           * Owns tier toggle state (heritage | signature).
-           * Heritage slider  → 7 Heritage watches, concierge CTA.
-           * Signature slider → Coming Soon cards, no commerce logic.
-           * Sprint 3: wires live Firestore data + ConciergeInquiryModal.
-           */}
-          <CollectionSection />
+            {/*
+             * CollectionSection: client component.
+             * Owns tier toggle state (heritage | signature).
+             * Heritage slider  → 7 Heritage watches, concierge CTA.
+             * Signature slider → Coming Soon cards, no commerce logic.
+             * Sprint 3: wires live Firestore data + ConciergeInquiryModal.
+             */}
+            <div className="gsap-hidden" data-gsap-entrance="collection-slider">
+              <CollectionSection />
+            </div>
+          </CollectionEntrance>
         </section>
 
         {/* ════════════════════════════════════════════════════════════
@@ -456,7 +482,7 @@ export default function HomePage() {
           data-section="salon"
           className="section-pad-md"
           style={{
-            backgroundColor: "var(--color-void-200)",
+            backgroundColor: "var(--color-surface-vault)",
             display: "flex",
             alignItems: "center",
             minHeight: "80vh",
