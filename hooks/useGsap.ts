@@ -51,8 +51,8 @@ export function useGsap(
     const container = containerRef.current;
     if (!container) return;
 
-    const ctx = gsap.context(() => {
-      factoryRef.current(ctx);
+    const ctx = gsap.context((self) => {
+      factoryRef.current(self as gsap.Context);
     }, container);
 
     return () => {
