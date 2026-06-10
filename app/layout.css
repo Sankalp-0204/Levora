@@ -72,3 +72,121 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 2rem; /* Maps to GRID.gap.md */
 }
+
+/* ============================================================================
+   SPRINT 2C PHASE 6 — ATELIER + CHRONOLOGY
+   ============================================================================ */
+
+/* ── §04 Atelier — 5-panel editorial grid ───────────────────────────────── */
+
+.atelier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+}
+
+.atelier-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .atelier-grid {
+    gap: 6rem;
+  }
+
+  .atelier-panel {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  /* Even panels: reverse column order (spec left, image right) */
+  .atelier-panel:nth-child(even) > *:first-child {
+    order: 2;
+  }
+  .atelier-panel:nth-child(even) > *:last-child {
+    order: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .atelier-grid {
+    gap: 8rem;
+  }
+
+  .atelier-panel {
+    gap: 5rem;
+  }
+}
+
+/* ── Atelier image region ────────────────────────────────────────────────── */
+
+.atelier-image-region {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-void-400);
+  border: 0.5px solid var(--color-ink-100);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .atelier-image-region {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ── Atelier spec divider — gold hairline between h3 and body ────────────── */
+
+.atelier-spec-divider {
+  width: 2rem;
+  height: 1px;
+  background-color: var(--color-gold-400);
+  opacity: 0.5;
+  margin: 0.5rem 0;
+  border: none;
+}
+
+/* ── §03 Chronology — desktop connector hairline ────────────────────────── */
+
+@media (min-width: 768px) {
+  .era-card {
+    position: relative;
+  }
+
+  .era-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -0.75rem;
+    width: 1px;
+    height: 100%;
+    background: var(--color-gold-400);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+}
+
+/* ── Era transformation — italic payoff line ────────────────────────────── */
+
+.era-transformation {
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* ── Atelier craft detail — spec-level secondary text ───────────────────── */
+
+.atelier-craft-detail {
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+  font-weight: 300;
+  padding-top: 0.75rem;
+  border-top: 0.5px solid var(--color-ink-200);
+  margin-top: 0.25rem;
+}
+

@@ -44,13 +44,14 @@ import {
   SITE_URL,
   getOrganizationJsonLd,
 } from "@/lib/constants/seo";
-import { BRAND_IDENTITY, BRAND_PHILOSOPHIES } from "@/lib/constants/brand";
+import { BRAND_IDENTITY } from "@/lib/constants/brand";
 import { WATCH_PLACEHOLDERS } from "@/lib/constants/collection";
 import { SALON_CONTACT_INFO } from "@/lib/constants/contact";
 
 import DynamicVideo from "@/components/story/DynamicVideo";
 import LayeredRenderer from "@/components/watch/LayeredRenderer";
 import StoryScroller from "@/components/story/StoryScroller";
+import AtelierSection from "@/components/story/AtelierSection";
 import CollectionSection from "@/components/ui/CollectionSection";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
@@ -340,7 +341,7 @@ export default function HomePage() {
             </h2>
 
             <p aria-label="Chronology description" className="type-body" style={{ marginBottom: "3rem" }}>
-              Seven eras. Seven art forms. Seven timepieces.
+              Seven dynasties. Seven art forms. Seven numbered timepieces.
             </p>
 
             {/*
@@ -364,7 +365,12 @@ export default function HomePage() {
           className="section-pad-lg"
           style={{ backgroundColor: "var(--color-void-200)" }}
         >
-          <div className="container-content">
+          {/*
+           * container-stage (1440px max) — upgraded from container-content (1280px).
+           * The 5-panel editorial grid needs the wider stage container for
+           * the alternating full-bleed image + spec layout to breathe correctly.
+           */}
+          <div className="container-stage">
             {/* Section eyebrow */}
             <span className="type-section-label" style={{ display: "block", marginBottom: "1rem" }}>
               The Craft
@@ -379,113 +385,13 @@ export default function HomePage() {
             </h2>
 
             {/*
-             * Editorial grid — image + spec panel pairs.
-             * Sprint 3: Next.js <Image> assets + GSAP reveal.
-             * data-atelier-panel on each block for GSAP hook.
+             * AtelierSection: Server Component.
+             * Renders 5 craft dimension panels from ATELIER_DIMENSIONS.
+             * Sprint 3: Next.js <Image> assets + GSAP fade+slide-up reveal.
+             * data-atelier-panel on each panel for GSAP hook.
              */}
-            <div
-              aria-label="Craftsmanship showcase"
-              data-atelier-grid="true"
-              className="atelier-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr",
-                gap: "4rem",
-              }}
-            >
-              {BRAND_PHILOSOPHIES.map((philosophy, index) => (
-                <div
-                  key={philosophy.title}
-                  data-atelier-panel={index}
-                  aria-label={philosophy.title}
-                  className="atelier-panel"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr",
-                    gap: "2rem",
-                    alignItems: "center",
-                  }}
-                >
-                  {/* Image placeholder */}
-                  <div
-                    aria-hidden="true"
-                    data-placeholder={`atelier-image-${index}`}
-                    role="presentation"
-                    style={{
-                      aspectRatio: "16 / 9",
-                      backgroundColor: "var(--color-void-400)",
-                      borderRadius: "var(--radius-lg)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                      overflow: "hidden",
-                      border: "0.5px solid var(--color-ink-100)",
-                    }}
-                  >
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "var(--gradient-gold-glow)",
-                        pointerEvents: "none",
-                      }}
-                    />
-                    <span
-                      className="type-metadata"
-                      style={{ position: "relative", zIndex: 1, color: "var(--color-text-muted)" }}
-                    >
-                      [ Atelier image {index + 1} placeholder ]
-                    </span>
-                  </div>
-
-                  {/* Spec panel */}
-                  <div
-                    aria-label="Craftsmanship specification"
-                    style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-                  >
-                    <span className="type-section-label">Philosophy {String(index + 1).padStart(2, "0")}</span>
-                    <h3
-                      className="type-card-heading"
-                      style={{ margin: 0 }}
-                    >
-                      {philosophy.title}
-                    </h3>
-                    <div
-                      style={{
-                        width: "2rem",
-                        height: "1px",
-                        backgroundColor: "var(--color-gold-400)",
-                      }}
-                      aria-hidden="true"
-                    />
-                    <p
-                      className="type-body"
-                      style={{ margin: 0 }}
-                    >
-                      {philosophy.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <AtelierSection />
           </div>
-
-          {/* Atelier responsive grid */}
-          <style>{`
-            @media (min-width: 768px) {
-              .atelier-panel {
-                grid-template-columns: 1fr 1fr !important;
-              }
-              .atelier-panel:nth-child(even) > div:first-child {
-                order: 2;
-              }
-              .atelier-panel:nth-child(even) > div:last-child {
-                order: 1;
-              }
-            }
-          `}</style>
         </section>
 
         {/* ════════════════════════════════════════════════════════════
@@ -689,13 +595,6 @@ export default function HomePage() {
             margin-left: 0 !important;
             margin-right: auto !important;
             text-align: left !important;
-          }
-        }
-        /* Atelier: 2-column on tablet+ */
-        @media (min-width: 768px) {
-          .atelier-grid {
-            grid-template-columns: 1fr !important;
-            gap: 5rem !important;
           }
         }
       `}</style>
