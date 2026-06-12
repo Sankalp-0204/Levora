@@ -17,6 +17,8 @@ export interface MediaAsset {
   svgContent?: string; // Raw SVG string for placeholder
   motionType?: "warli" | "pattachitra" | "chand_baori" | "bidriware"; // For HeritageMotion
   alt: string;
+  priority?: boolean; // For LCP image preloading
+  blurDataURL?: string; // For base64 blur placeholders
 }
 
 interface MediaLayerProps {
@@ -43,13 +45,18 @@ export function MediaLayer({ asset, className = "", priority = false }: MediaLay
 
   if (asset.type === "image" && asset.src) {
     return (
-      <Image
-        src={asset.src}
-        alt={asset.alt}
-        fill
-        className={`object-cover ${className}`}
-        priority={priority}
-      />
+      <div className={`relative w-full h-full ${className}`}>
+        <Image
+          src={asset.src}
+          alt={asset.alt}
+          fill={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="object-cover"
+          priority={asset.priority || priority}
+          placeholder={asset.blurDataURL ? "blur" : "empty"}
+          blurDataURL={asset.blurDataURL}
+        />
+      </div>
     );
   }
 
