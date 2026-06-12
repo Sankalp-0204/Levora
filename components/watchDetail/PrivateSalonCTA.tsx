@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import Link from "next/link";
 
 interface PrivateSalonCTAProps {
   invitationCopy: string;
@@ -26,9 +27,11 @@ export function PrivateSalonCTA({
         </p>
 
         <div className="flex flex-col gap-4 items-center">
-          <Button variant="ghost" className="min-w-[240px]">
-            Inquire About {watchName}
-          </Button>
+          <Link href={`/salon?interest=${watchName.toLowerCase().replace(/\s+/g, '-')}`} passHref>
+            <Button variant="ghost" className="min-w-[240px]">
+              Inquire About {watchName}
+            </Button>
+          </Link>
           <span className="type-caption text-ink-400">
             Available in New Delhi & Geneva
           </span>
