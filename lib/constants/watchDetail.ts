@@ -169,7 +169,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece is hallmarked with the Nikumbha dynasty symbol and individually serialised I/VII through VII/VII. The edition numeral is engraved on the exhibition caseback alongside the artisan's certification mark.",
 
-    salonInvitation: "The Chand Baori is among the rarest pieces in the Heritage Collection. A private viewing requires an appointment with a Levora horology specialist in New Delhi.",
+    salonInvitation: "The acquisition of the Chand Baori requires an orientation to its architectural philosophy. A private viewing is strictly by appointment with a Levora horology specialist in New Delhi.",
   },
 
   // ── HERITAGE_02 — Pichwai ─────────────────────────────────────────────────
@@ -234,7 +234,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece carries a wax seal mark in the presentation box — the traditional temple seal of Nathdwara — and is individually numbered in Devanagari script alongside the Roman edition numeral on the exhibition caseback.",
 
-    salonInvitation: "The Pichwai is among the most technically complex dials in the Heritage Collection. A private consultation includes examination of the eleven-layer enamel construction under magnification.",
+    salonInvitation: "A private consultation for the Pichwai dial includes an examination of its eleven-layer enamel construction under 10× magnification. It is a necessary prerequisite to understanding the material depth of the devotion.",
   },
 
   // ── HERITAGE_03 — Warli ───────────────────────────────────────────────────
@@ -292,7 +292,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
       title: "To Inherit a Language",
       body: [
         "Warli was never made to last. Each painting was redone each season. The medium — rice paste on mud — guaranteed impermanence. The Levora dial is the first time the Warli language has been permanently fixed: not on a wall that will be re-plastered, but on a brass canvas that will outlive everyone who made it.",
-        "This creates an obligation. To own HERITAGE_03 is to become custodian of a compression — three thousand years of philosophy reduced to four essential shapes. A portion of every Heritage Collection acquisition supports the Warli Kala Kendra in Dahanu, which sustains the living teaching tradition.",
+        "This creates an obligation. To own HERITAGE_03 is to become custodian of a compression — three thousand years of philosophy reduced to four essential shapes. The collector who acquires it assumes direct patronage of the Warli Kala Kendra in Dahanu, ensuring the living teaching tradition is sustained.",
         "The collector does not merely own a dial. They fund the conditions under which the next generation of Warli practitioners continues to ask the only question that matters: what is the minimum needed to say everything?",
       ],
     },
@@ -364,7 +364,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece bears the traditional Chitrakar hallmark — an applied wood apple resin seal — embedded in the presentation box. The exhibition caseback carries the edition numeral and the artisan's certification mark in the style of a Pattachitra border motif.",
 
-    salonInvitation: "The Pattachitra requires time to understand. A private viewing at the Levora Salon includes a magnification session to examine the individual dial motifs under a 10× loupe.",
+    salonInvitation: "The Pattachitra cosmology cannot be comprehended at a glance. A private viewing at the Levora Salon is structured as an unhurried, guided reading of the dial's intricate narrative architecture.",
   },
 
   // ── HERITAGE_05 — Tanjore ─────────────────────────────────────────────────
@@ -429,7 +429,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece is accompanied by a gemological certificate for the individual cabochon ruby — including carat weight, geographic origin, and quality grading. The exhibition caseback bears the edition numeral and the goldsmith's mark.",
 
-    salonInvitation: "The Tanjore is the only Heritage Collection piece set with a genuine gemstone. A private consultation includes examination of the individual ruby's gemological certificate.",
+    salonInvitation: "A private consultation for the Tanjore involves an examination of the material weight of the offering, including the historical provenance of the singular cabochon ruby set at the zenith.",
   },
 
   // ── HERITAGE_06 — Madhubani ───────────────────────────────────────────────
@@ -494,7 +494,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece is accompanied by a hand-signed certificate from the collaborating Madhubani master, written in Maithili script on handmade lokta paper, alongside the edition numeral engraved on the exhibition caseback.",
 
-    salonInvitation: "The Madhubani carries the most complex human story of any piece in the Heritage Collection. A private consultation is an opportunity to hear it in full.",
+    salonInvitation: "The history of the Madhubani is not intended for public broadcast. A private consultation at the Levora Salon is an opportunity to hear the narrative that was kept secret for a millennium.",
   },
 
   // ── HERITAGE_07 — Bidriware ───────────────────────────────────────────────
@@ -551,7 +551,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     ownershipPhilosophy: {
       title: "To Understand What Darkness Makes Possible",
       body: [
-        "HERITAGE_07 is the most extreme piece in the Heritage Collection — in concept, technique, and appearance. It is black and silver. There is no warmth in the dial's palette. The contrast is absolute. This is not aesthetic minimalism. It is the Bidri philosophy materialised: beauty exists in contrast, and contrast requires the willingness to embrace the dark part of the equation.",
+        "HERITAGE_07 represents an uncompromising absolute — in concept, technique, and appearance. It is black and silver. There is no warmth in the dial's palette. The contrast is absolute. This is not aesthetic minimalism. It is the Bidri philosophy materialised: beauty exists in contrast, and contrast requires the willingness to embrace the dark part of the equation.",
         "The collector who acquires HERITAGE_07 is making a statement about their understanding of beauty — that it requires depth, that depth requires difficulty, and that the most meaningful things cannot be extracted from their context and remain meaningful. The silver of this dial is only beautiful because of 72 hours of darkness in Bidar soil. Take away the process and you take away the point.",
         "This is the final Heritage edition to be placed. When the seventh Bidriware is acquired, the Heritage Collection closes — seven art forms, seven dialects of the same devotion, each teaching its own lesson about what it means to make something with complete integrity.",
       ],
@@ -559,7 +559,7 @@ export const WATCH_DETAIL_CONTENT: Record<string, WatchDetailContent> = {
     editionTotal: 7,
     editionMark: "Each piece is individually oxidised in a sealed container of authentic Bidar soil — a portion of which is enclosed in the presentation box as a material record of the process. The exhibition caseback bears the edition numeral and the Bidri master's hallmark.",
 
-    salonInvitation: "The Bidriware is the most technically extreme and philosophically complex piece in the Heritage Collection. A private consultation is strongly recommended — not as a sales step, but as an orientation to what acquiring it means.",
+    salonInvitation: "The acquisition of the Bidriware requires an orientation to its uncompromising philosophy and striking contrast. A private consultation at the Levora Salon is mandatory prior to placement.",
   },
 
 } as const;
