@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./typography.css";
+@import "./layout.css";
 
 /* ============================================================================
    LEVORA DESIGN TOKEN SYSTEM
@@ -51,13 +53,24 @@
   /* Warm yellow-gold. Secondary accents, icon fills.      */
   --color-gold-300: #E2BA39;
   /* Burnished gold. Active states, progress indicators.   */
-  --color-gold-400: #D4AF37;
-  /* PRIMARY GOLD ACCENT — borders, highlights, CTAs.      */
-  /* Classic antique gold; restrained and luxurious.       */
+  --color-gold-400: #C9A227;
+  /* PRIMARY GOLD ACCENT — burnished accent gold.          */
+  /* HSL(43,55%,48%) — more amber, less yellow.           */
+  /* Antique gold after handling — not fresh, not bright. */
   --color-gold-500: #B79325;
   /* Deep warm gold. Pressed/focused states.              */
   --color-gold-600: #98761A;
   /* Dark amber-gold. Text on gold backgrounds.           */
+
+  /* ── Phase 7: Extended Gold Hierarchy ──────────────────────────────────── */
+  --color-gold-raw: #A37B16;
+  /* Raw Atelier Gold. HSL(42,65%,38%).                   */
+  /* 22-karat unfinished gold leaf before application.    */
+  /* Usage: Atelier craft eyebrows, era card hairlines.   */
+  --color-gold-parchment: #EDD990;
+  /* Parchment Highlight Gold. HSL(44,60%,82%).           */
+  /* Aged parchment / gold-leaf book cover interior.      */
+  /* Usage: dialTransformation italic, era period labels. */
 
   /* ── Silver Scale ───────────────────────────────────────────────────────── */
   /* Sterling silver tones for secondary metal accents.                       */
@@ -76,6 +89,16 @@
   --color-silver-600: #777777;
   /* Gunmetal grey. Heavy dividers, rule lines.        */
 
+  /* ── Phase 7: Extended Silver Roles ────────────────────────────────────── */
+  --color-silver-movement: #ACAEB4;
+  /* Movement Silver. HSL(210,8%,68%).                 */
+  /* Rhodium-plated bridges and mainplate colour.      */
+  /* Usage: reference IDs (HERITAGE_01), dim indexes. */
+  --color-silver-dial: #D6D7DA;
+  /* Dial Silver. HSL(210,6%,85%).                     */
+  /* Silver-finish watch dial. Warmer than pure white. */
+  /* Usage: Atelier craftDetail, movement panel text.  */
+
   /* ── Void Scale (Backgrounds) ───────────────────────────────────────────── */
   /* Deep blacks optimised for OLED, near-black contrasts.                   */
   --color-void-000: #000000;
@@ -84,10 +107,12 @@
   /* Levora Black: true base background.               */
   --color-void-100: #0A0A0A;
   /* One step up. Ambient video overlays.              */
-  --color-void-200: #0D0E11;
-  /* Luxury Slate. Primary page background.            */
-  --color-void-300: #121217;
-  /* Deep surface. Card backgrounds, nav backdrop.     */
+  --color-void-200: #0E0C0B;
+  /* Atelier Black. Warm charcoal primary background.  */
+  /* HSL(24,8%,5%) — a trace of sienna warmth.         */
+  --color-void-300: #130F0B;
+  /* Chronology Stone. Terracotta-influenced charcoal. */
+  /* HSL(28,12%,7%) — Agra sandstone at night.         */
   --color-void-400: #14161E;
   /* Raised surface. Hover cards, glass layers.        */
   --color-void-500: #1C1E28;
@@ -101,18 +126,68 @@
   --color-ink-300: #363744;
   /* Inactive tab backgrounds, skeleton loaders.       */
 
+  /* ── Phase 7: Section Surface Tokens ───────────────────────────────────── */
+  /* Atmospherically distinct backgrounds per section.                        */
+  /* Each references a different Indian craft material.                       */
+  --color-surface-vault: #0E0C0B;
+  /* Atelier Black. Threshold, Atelier, Salon.         */
+  /* The interior of a gold vault or sandstone at night.*/
+  --color-surface-stone: #130F0B;
+  /* Chronology. Rajput fort interior at night.        */
+  /* Deep terracotta-influenced charcoal.              */
+  --color-surface-cabinet: #0C0D12;
+  /* Collection. Watch display cabinet, midnight felt. */
+  /* HSL(220,10%,8%) — faint navy — cool velvet.       */
+  --color-surface-raised: #170F0C;
+  /* Era cards, glass panels. Lacquered surface.       */
+  /* HSL(26,10%,9%) — darker and warmer than stone.    */
+
+  /* ── Phase 7: Warm Rule Lines ──────────────────────────────────────────── */
+  --color-rule-warm: #231D19;
+  /* Warm charcoal rule. HSL(24,10%,14%).              */
+  /* Reads as material edge, not grey line.            */
+
   /* ── Semantic Text Colors ───────────────────────────────────────────────── */
-  /* Designed for WCAG AA compliance on void backgrounds.                     */
-  --color-text-primary: #FCFBF9;
-  /* Soft off-white. Primary body and heading text.*/
-  --color-text-secondary: #9F9F9F;
-  /* Clean mid-grey. Sub-headings, captions.       */
-  --color-text-muted: #626262;
-  /* Dark muted grey. Placeholder, helper text.    */
-  --color-text-gold: #D4AF37;
-  /* Gold tinted text. Luxury labels, prices.      */
+  /* Designed for WCAG AA compliance on warm void backgrounds.                */
+  --color-text-primary: #F5EFE4;
+  /* Warm Ivory. HSL(36,52%,93%).                  */
+  /* Aged cream paper — not white, not yellow.     */
+  /* Reference: A. Lange & Söhne editorial text.   */
+  --color-text-secondary: #9A9189;
+  /* Warm Ash. HSL(24,8%,57%).                     */
+  /* Ash from wood fire / patina on aged silver.   */
+  /* Not visible as brown. Not cold as grey.       */
+  --color-text-muted: #5E574F;
+  /* Antique Lead. HSL(27,8%,34%).                 */
+  /* Warm, heavy, aged — antique lead type colour. */
+  --color-text-gold: #C9A227;
+  /* Burnished gold tinted text (matches gold-400).*/
   --color-text-inverse: #050505;
   /* Dark text on gold/light backgrounds.          */
+
+  /* ── Phase 7: Heritage Pigment Colors ──────────────────────────────────── */
+  /* Used exclusively in the Chronology section.                              */
+  /* Never as general-purpose accents.                                        */
+  --color-heritage-verdigris: #435C53;
+  /* Aged copper temple bell patina. HSL(165,18%,32%). */
+  /* Usage: eraPeriod text on Chronology cards.       */
+  --color-heritage-sindoor: #5C352A;
+  /* Aged vermilion sindoor — air-exposed. HSL(12,35%,28%). */
+  /* Usage: optional micro-accent on selected era card. */
+  --color-heritage-sandstone: #8C6B42;
+  /* Agra red sandstone amber. HSL(30,30%,45%).       */
+  /* Usage: artworkSubtitle italic in Chronology.    */
+
+  /* ── Phase 7: Atelier Material Colors ──────────────────────────────────── */
+  --color-atelier-linen: #1C1710;
+  /* Raw unbleached linen in darkness. HSL(36,20%,10%). */
+  /* Usage: .atelier-image-region background.          */
+  --color-atelier-brass: #6F5930;
+  /* Aged brass — watch movement base plate. HSL(38,28%,35%). */
+  /* Usage: Atelier section structural dividers.       */
+  --color-atelier-craft: #736055;
+  /* Dark terracotta clay. HSL(30,12%,42%).            */
+  /* Usage: .atelier-craft-detail secondary text.     */
 
   /* ── Semantic State Colors ──────────────────────────────────────────────── */
   --color-state-success: #4CAF7D;
@@ -146,6 +221,15 @@
   /* Cormorant Garamond */
   --font-body: var(--font-body), "system-ui", sans-serif;
   /* Outfit            */
+  --font-mono: 'ui-monospace', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ── Fluid Font Sizes ───────────────────────────────────────────────────── */
+  --text-fluid-display: clamp(2.25rem, 1.023rem + 5.231vw, 5rem);
+  --text-fluid-h1:      clamp(2rem,    0.923rem + 4.615vw, 4.5rem);
+  --text-fluid-h2:      clamp(1.5rem,  1.077rem + 1.846vw, 2.5rem);
+  --text-fluid-h3:      clamp(1.25rem, 1.038rem + 0.923vw, 1.75rem);
+  --text-fluid-h4:      clamp(1.0625rem, 0.929rem + 0.577vw, 1.375rem);
+  --text-fluid-h5:      clamp(1rem,    0.946rem + 0.231vw, 1.125rem);
 
   /* ── Font Sizes ─────────────────────────────────────────────────────────── */
   /* Based on a Major Third scale (1.250) anchored at 1rem (16px).            */
@@ -202,6 +286,12 @@
   /* Comfortable reading for body copy                   */
   --leading-loose: 2.0;
   /* Spacious for luxury narrative text sections          */
+
+  /* ── Prose Reading Widths ───────────────────────────────────────────────── */
+  --prose-tight:    45ch;
+  --prose-standard: 60ch;
+  --prose-wide:     72ch;
+  --prose-max:      90ch;
 
   /* ==========================================================================
      3. SPACING
@@ -396,16 +486,17 @@
      ========================================================================== */
 
   /* ── Dark Glass (primary) ───────────────────────────────────────────────── */
-  --glass-dark-bg: rgba(13, 14, 17, 0.60);
-  /* void-200 @ 60% opacity    */
+  --glass-dark-bg: rgba(23, 15, 12, 0.65);
+  /* surface-raised @ 65% opacity — warm lacquer     */
   --glass-dark-blur: 20px;
-  /* backdrop-blur value       */
-  --glass-dark-border: rgba(255, 255, 255, 0.05);
-  /* whisper-thin white border */
+  /* backdrop-blur value                             */
+  --glass-dark-border: rgba(255, 248, 235, 0.06);
+  /* warm parchment white border — not cold white    */
+  /* On warm dark backgrounds, cold borders = leaks. */
   --glass-dark-border-w: 0.5px;
-  /* hairline border width      */
+  /* hairline border width                           */
   --glass-dark-shadow: var(--shadow-float);
-  /* floats above content       */
+  /* floats above content                            */
 
   /* ── Gold Glass (accent) ────────────────────────────────────────────────── */
   --glass-gold-bg: rgba(212, 175, 55, 0.06);
@@ -452,7 +543,11 @@ body {
 
 
 /* ============================================================================
-   TYPOGRAPHY BASE — Semantic defaults from token system
+   TYPOGRAPHY BASE — Legacy element defaults (fallback only)
+   
+   Sprint 2C strategy: .type-* classes in typography.css are canonical for
+   homepage and all new UI. These tag rules remain as unstyled-scaffold fallback
+   until Phase 2 scopes or removes them. Do not add new styles here.
    ============================================================================ */
 
 h1 {
@@ -495,7 +590,7 @@ p {
   font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: var(--font-weight-light);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-normal);
   line-height: var(--leading-body);
   color: var(--color-text-secondary);
 }
@@ -549,8 +644,12 @@ p {
 }
 
 /* ── Typography Utility Classes ─────────────────────────────────────────── */
+/*
+ * DEPRECATED (Sprint 2C Phase 0): use .type-nav-label / .type-button-label /
+ * .type-section-label from typography.css instead. Removed in Phase 7.
+ */
 
-/* All-caps luxury label — nav links, section tags, button text */
+/* @deprecated → .type-nav-label or .type-button-label */
 .text-caps-luxury {
   font-family: var(--font-body);
   font-size: var(--text-caps);
@@ -560,7 +659,7 @@ p {
   color: var(--color-text-secondary);
 }
 
-/* Decorative section heading (e.g. HERITAGE COLLECTION) */
+/* @deprecated → .type-section-label */
 .text-section-label {
   font-family: var(--font-body);
   font-size: var(--text-micro);
@@ -571,9 +670,7 @@ p {
 }
 
 /* Gold text highlight — price, featured label */
-.text-gold {
-  color: var(--color-text-gold);
-}
+/* Deprecated: .text-gold duplicate removed, using typography.css modifier instead */
 
 /* ── Shadow Utility Classes ─────────────────────────────────────────────── */
 .shadow-gold-glow-sm {

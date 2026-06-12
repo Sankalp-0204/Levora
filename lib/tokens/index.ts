@@ -25,49 +25,75 @@
 
 export const colors = {
   gold: {
-    50:  "#FCF9F2",
+    50: "#FCF9F2",
     100: "#F6EDB9",
     200: "#ECD473",
     300: "#E2BA39",
-    400: "#D4AF37", // PRIMARY GOLD ACCENT
+    400: "#C9A227", // PRIMARY GOLD ACCENT — burnished amber (Phase 7)
     500: "#B79325",
     600: "#98761A",
+    // Phase 7: Extended gold hierarchy
+    raw: "#A37B16",        // 22k unfinished gold leaf — Atelier hairlines
+    parchment: "#EDD990", // Parchment highlight — dialTransformation text
   },
   silver: {
-    50:  "#FFFFFF",
+    50: "#FFFFFF",
     100: "#F2F2F2",
     200: "#E6E6E6",
     300: "#D4D4D4",
     400: "#CCCCCC", // PRIMARY SILVER ACCENT
     500: "#999999",
     600: "#777777",
+    // Phase 7: Extended silver roles
+    movement: "#ACAEB4", // Rhodium-plated movement — reference IDs, indexes
+    dial: "#D6D7DA",     // Silver-finish dial — craftDetail, movement panel
   },
   void: {
     "000": "#000000",
-    50:    "#050505",
-    100:   "#0A0A0A",
-    200:   "#0D0E11",
-    300:   "#121217",
-    400:   "#14161E",
-    500:   "#1C1E28",
+    50: "#050505",
+    100: "#0A0A0A",
+    200: "#0E0C0B", // Phase 7: Atelier Black — warm charcoal primary bg
+    300: "#130F0B", // Phase 7: Chronology Stone — terracotta charcoal
+    400: "#14161E",
+    500: "#1C1E28",
   },
+  // Phase 7: Section-specific atmospheric surfaces
+  surface: {
+    vault: "#0E0C0B",   // Threshold, Atelier, Salon — warm gold-vault dark
+    stone: "#130F0B",   // Chronology — Rajput fort interior at night
+    cabinet: "#0C0D12", // Collection — midnight felt watch cabinet
+    raised: "#170F0C",  // Era cards, glass panels — lacquered surface
+  },
+  ruleWarm: "#231D19", // Warm charcoal dividers — material edge, not grey line
   ink: {
     100: "#212128",
     200: "#2A2B36",
     300: "#363744",
   },
   text: {
-    primary:   "#FCFBF9",
-    secondary: "#9F9F9F",
-    muted:     "#626262",
-    gold:      "#D4AF37",
-    inverse:   "#050505",
+    primary: "#F5EFE4",   // Phase 7: Warm Ivory — aged cream paper
+    secondary: "#9A9189", // Phase 7: Warm Ash — ash from wood fire
+    muted: "#5E574F",     // Phase 7: Antique Lead — heavy, warm, aged
+    gold: "#C9A227",
+    inverse: "#050505",
+  },
+  // Phase 7: Heritage pigment colors — Chronology section only
+  heritage: {
+    verdigris: "#435C53",  // Aged copper bell patina — eraPeriod text
+    sindoor: "#5C352A",    // Aged vermilion — micro-accent on selected card
+    sandstone: "#8C6B42", // Agra red sandstone — artworkSubtitle text
+  },
+  // Phase 7: Atelier material colors
+  atelier: {
+    linen: "#1C1710",  // Raw unbleached linen — image region background
+    brass: "#6F5930",  // Aged brass movement plate — Atelier dividers
+    craft: "#736055",  // Dark terracotta clay — craft detail text
   },
   state: {
     success: "#4CAF7D",
     warning: "#D4AC37",
-    error:   "#C94B4B",
-    info:    "#5B8DC4",
+    error: "#C94B4B",
+    info: "#5B8DC4",
   },
 } as const;
 
@@ -89,13 +115,13 @@ export const colors = {
  */
 export const motion = {
   duration: {
-    instant:    100,  // ms — micro-feedback
-    fast:       200,  // ms — button hover, border transitions
-    normal:     350,  // ms — tabs, dropdowns
-    slow:       600,  // ms — card reveals, panel slides
-    luxury:     900,  // ms — hero text, watch card entries
+    instant: 100,  // ms — micro-feedback
+    fast: 200,  // ms — button hover, border transitions
+    normal: 350,  // ms — tabs, dropdowns
+    slow: 600,  // ms — card reveals, panel slides
+    luxury: 900,  // ms — hero text, watch card entries
     cinematic: 1400,  // ms — page transitions, modal opens
-    story:     2000,  // ms — story scroll panel fade-ins
+    story: 2000,  // ms — story scroll panel fade-ins
   },
 
   /**
@@ -108,22 +134,22 @@ export const motion = {
    */
   ease: {
     /** Primary brand ease: fast start, silk deceleration */
-    luxury:    "cubic-bezier(0.16, 1.00, 0.30, 1.00)",
+    luxury: "cubic-bezier(0.16, 1.00, 0.30, 1.00)",
 
     /** Accelerating entries — elements entering the viewport */
-    inLuxury:  "cubic-bezier(0.55, 0.00, 1.00, 0.45)",
+    inLuxury: "cubic-bezier(0.55, 0.00, 1.00, 0.45)",
 
     /** Explosive deceleration — dramatic reveals */
-    outExpo:   "cubic-bezier(0.19, 1.00, 0.22, 1.00)",
+    outExpo: "cubic-bezier(0.19, 1.00, 0.22, 1.00)",
 
     /** Subtle spring finish — natural resting position */
-    spring:    "cubic-bezier(0.34, 1.56, 0.64, 1.00)",
+    spring: "cubic-bezier(0.34, 1.56, 0.64, 1.00)",
 
     /** Linear — exclusively for GSAP scrub timelines */
-    linear:    "linear",
+    linear: "linear",
 
     /** Standard smooth — generic fallback */
-    standard:  "cubic-bezier(0.25, 0.10, 0.25, 1.00)",
+    standard: "cubic-bezier(0.25, 0.10, 0.25, 1.00)",
   },
 
   /**
@@ -133,7 +159,7 @@ export const motion = {
    */
   scrub: {
     standard: 1,    // Standard scroll friction
-    premium:  1.5,  // Premium, heavy-feeling luxury scrub
+    premium: 1.5,  // Premium, heavy-feeling luxury scrub
   },
 } as const;
 
@@ -143,16 +169,16 @@ export const motion = {
 // ============================================================================
 
 export const z = {
-  base:      0,
-  raised:    10,
+  base: 0,
+  raised: 10,
   dialLayer: 20,   // GSAP dial separation base
-  sticky:    50,
-  dropdown:  100,
-  drawer:    200,
-  modal:     300,
-  toast:     400,
-  overlay:   500,
-  cursor:    999,
+  sticky: 50,
+  dropdown: 100,
+  drawer: 200,
+  modal: 300,
+  toast: 400,
+  overlay: 500,
+  cursor: 999,
 } as const;
 
 
@@ -163,40 +189,40 @@ export const z = {
 export const typography = {
   family: {
     display: "var(--font-display)",  // Cormorant Garamond
-    body:    "var(--font-body)",     // Outfit
+    body: "var(--font-body)",     // Outfit
   },
   size: {
-    h1:      "4.5rem",
-    h2:      "2.5rem",
-    h3:      "1.75rem",
-    h4:      "1.375rem",
-    bodyLg:  "1.125rem",
-    body:    "0.9375rem",
-    bodySm:  "0.875rem",
-    caps:    "0.75rem",
-    micro:   "0.6875rem",
+    h1: "4.5rem",
+    h2: "2.5rem",
+    h3: "1.75rem",
+    h4: "1.375rem",
+    bodyLg: "1.125rem",
+    body: "0.9375rem",
+    bodySm: "0.875rem",
+    caps: "0.75rem",
+    micro: "0.6875rem",
   },
   weight: {
-    light:    300,
-    regular:  400,
-    medium:   500,
+    light: 300,
+    regular: 400,
+    medium: 500,
     semibold: 600,
-    bold:     700,
+    bold: 700,
   },
   tracking: {
-    tight:   "-0.02em",
-    normal:   "0em",
-    relaxed:  "0.02em",
-    wide:     "0.08em",
-    luxury:   "0.15em",
-    ultra:    "0.25em",
+    tight: "-0.02em",
+    normal: "0em",
+    relaxed: "0.02em",
+    wide: "0.08em",
+    luxury: "0.15em",
+    ultra: "0.25em",
   },
   leading: {
     display: 1.05,
     heading: 1.2,
-    snug:    1.35,
-    body:    1.7,
-    loose:   2.0,
+    snug: 1.35,
+    body: 1.7,
+    loose: 2.0,
   },
 } as const;
 
@@ -206,15 +232,15 @@ export const typography = {
 // ============================================================================
 
 export const shadows = {
-  none:        "none",
-  surface:     "0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20)",
-  raised:      "0 4px 16px rgba(0,0,0,0.40), 0 2px 6px rgba(0,0,0,0.25)",
-  float:       "0 8px 30px rgba(0,0,0,0.50), 0 4px 12px rgba(0,0,0,0.30)",
-  modal:       "0 25px 60px rgba(0,0,0,0.70), 0 10px 25px rgba(0,0,0,0.40)",
-  deep:        "0 40px 80px rgba(0,0,0,0.80), 0 15px 35px rgba(0,0,0,0.50)",
-  goldSm:      "0 0 12px rgba(212,175,55,0.20), 0 0 4px rgba(212,175,55,0.10)",
-  goldMd:      "0 0 30px rgba(212,175,55,0.25), 0 0 12px rgba(212,175,55,0.15)",
-  goldLg:      "0 0 60px rgba(212,175,55,0.30), 0 0 25px rgba(212,175,55,0.20), 0 0 8px rgba(212,175,55,0.12)",
+  none: "none",
+  surface: "0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20)",
+  raised: "0 4px 16px rgba(0,0,0,0.40), 0 2px 6px rgba(0,0,0,0.25)",
+  float: "0 8px 30px rgba(0,0,0,0.50), 0 4px 12px rgba(0,0,0,0.30)",
+  modal: "0 25px 60px rgba(0,0,0,0.70), 0 10px 25px rgba(0,0,0,0.40)",
+  deep: "0 40px 80px rgba(0,0,0,0.80), 0 15px 35px rgba(0,0,0,0.50)",
+  goldSm: "0 0 12px rgba(212,175,55,0.20), 0 0 4px rgba(212,175,55,0.10)",
+  goldMd: "0 0 30px rgba(212,175,55,0.25), 0 0 12px rgba(212,175,55,0.15)",
+  goldLg: "0 0 60px rgba(212,175,55,0.30), 0 0 25px rgba(212,175,55,0.20), 0 0 8px rgba(212,175,55,0.12)",
 } as const;
 
 
@@ -224,22 +250,22 @@ export const shadows = {
 
 export const glass = {
   dark: {
-    background:  "rgba(13, 14, 17, 0.60)",
-    blur:        "20px",
-    border:      "0.5px solid rgba(255, 255, 255, 0.05)",
-    shadow:      shadows.float,
+    background: "rgba(23, 15, 12, 0.65)",  // Phase 7: warm lacquer surface
+    blur: "20px",
+    border: "0.5px solid rgba(255, 248, 235, 0.06)", // Phase 7: warm parchment white
+    shadow: shadows.float,
   },
   gold: {
-    background:  "rgba(212, 175, 55, 0.06)",
-    blur:        "16px",
-    border:      "0.5px solid rgba(212, 175, 55, 0.20)",
-    shadow:      shadows.goldMd,
+    background: "rgba(212, 175, 55, 0.06)",
+    blur: "16px",
+    border: "0.5px solid rgba(212, 175, 55, 0.20)",
+    shadow: shadows.goldMd,
   },
   frost: {
-    background:  "rgba(255, 255, 255, 0.04)",
-    blur:        "24px",
-    border:      "0.5px solid rgba(255, 255, 255, 0.10)",
-    shadow:      shadows.raised,
+    background: "rgba(255, 255, 255, 0.04)",
+    blur: "24px",
+    border: "0.5px solid rgba(255, 255, 255, 0.10)",
+    shadow: shadows.raised,
   },
 } as const;
 
@@ -249,15 +275,41 @@ export const glass = {
 // ============================================================================
 
 export const radius = {
-  none:    "0px",
-  sm:      "2px",
-  md:      "6px",
-  lg:      "12px",
-  xl:      "20px",
-  "2xl":   "32px",
+  none: "0px",
+  sm: "2px",
+  md: "6px",
+  lg: "12px",
+  xl: "20px",
+  "2xl": "32px",
   crystal: "9999px",
 } as const;
 
+
+// ============================================================================
+// 8. LAYOUT & SPACING (Mirrored from layout.ts)
+// ============================================================================
+import { BREAKPOINTS, CONTAINER, NAV, SECTION_SPACING, GRID, FOOTER } from '../constants/layout';
+
+export { BREAKPOINTS, CONTAINER, NAV, SECTION_SPACING, GRID, FOOTER };
+export const spacing = SECTION_SPACING;
+
+// ============================================================================
+// 9. GRADIENTS
+// ============================================================================
+export const gradients = {
+  goldMetallic: "linear-gradient(135deg, #F6EDB9 0%, #D4AF37 50%, #98761A 100%)",
+  silverMetallic: "linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 50%, #888888 100%)",
+  goldGlow: "radial-gradient(circle, rgba(212, 175, 55, 0.10) 0%, rgba(0, 0, 0, 0) 70%)",
+  pageAmbient: "radial-gradient(ellipse at top, #14161E 0%, #050505 100%)",
+  cardSheen: "linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 60%)",
+} as const;
+
+// ============================================================================
+// 10. TYPOGRAPHY (Full Re-export from typography.ts)
+// Note: The 'typography' const above is a partial mirror. For new code, 
+// prefer importing from this full re-export or directly from typography.ts.
+// ============================================================================
+export * from './typography';
 
 // ============================================================================
 // TYPE EXPORTS — Derive TypeScript types from const values for strict typing
@@ -270,3 +322,4 @@ export type TypographyScale = typeof typography;
 export type ShadowTokens    = typeof shadows;
 export type GlassTokens     = typeof glass;
 export type RadiusTokens    = typeof radius;
+export type GradientTokens  = typeof gradients;

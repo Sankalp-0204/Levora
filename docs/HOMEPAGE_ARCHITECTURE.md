@@ -94,11 +94,11 @@ in the luxury storytelling funnel defined in `docs/HOMEPAGE_EXPERIENCE.md`.
 ### Section 05 — The Collection
 
 - **Emotional Goal**: Transition curiosity into personal desire and object ownership.
-- **Brand Psychology**: The gallery presents rarity — only 7 pieces, each unique.
-- **Visual Language**: Premium active-card slider. Active card shows macro dial render.
-  Adjacent cards are intentionally blurred and scaled down.
-- **Visitor Action**: Click and drag to browse. Hover reveals model details.
-  CTA per card: *"Explore"* → `/collections/heritage/[slug]`
+- **Brand Psychology**: Showcase the duality of the brand: exclusive heritage vs. accessible luxury.
+- **Visual Language**: Premium active-card sliders with a top toggle ("Heritage Collection" vs "Signature Collection").
+- **Visitor Action**: Toggle tier, drag to browse.
+  - Heritage CTA per card: *"Request Private Consultation"*
+  - Signature CTA per card: *"Add to Collection"*
 
 ---
 
@@ -157,10 +157,17 @@ app/page.tsx                               ← Homepage route (Server Component)
 │       └── [SpecPanel × N]               ← Scroll-triggered fade-in spec blocks
 │
 ├── <section id="collection">
-│   └── components/ui/Slider.tsx           ← Drag-enabled premium card carousel
-│       └── components/watch/WatchContainer.tsx × 7
+│   ├── [CollectionToggle]                 ← NEW: "Heritage" | "Signature" tab toggle
+│   │
+│   ├── components/ui/Slider.tsx           ← Heritage slider (conditional)
+│   │   └── components/watch/WatchContainer.tsx × 7
+│   │       └── components/watch/StaticRenderer.tsx
+│   │           └── [WatchMeta overlay]    ← Name, tagline, "Request Private Consultation" CTA
+│   │
+│   └── components/ui/Slider.tsx           ← Signature slider (conditional)
+│       └── components/watch/WatchContainer.tsx × N
 │           └── components/watch/StaticRenderer.tsx
-│               └── [WatchMeta overlay]    ← Name, tagline, explore CTA
+│               └── [WatchMeta overlay]    ← Name, price, "Add to Collection" CTA
 │
 ├── <section id="salon">
 │   └── components/ui/GlassCard.tsx        ← Container for salon invite block

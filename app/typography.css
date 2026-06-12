@@ -1,6 +1,10 @@
 /* ============================================================================
    LEVORA TYPOGRAPHY SYSTEM — typography.css
    
+   CANONICAL typography layer for Sprint 2C+. Apply .type-* classes explicitly
+   on every text element in homepage sections and new UI. Do not rely on
+   unclassed h1–p defaults in globals.css (legacy fallback — Phase 2 removal).
+   
    This file defines every semantic typographic role as composable CSS classes.
    It is imported by globals.css and extends the base @theme token definitions.
    
@@ -24,36 +28,6 @@
      <span class="type-section-label">Heritage Collection</span>
      <dd class="type-spec-value">Swiss ETA 2824-2</dd>
    ============================================================================ */
-
-
-/* ============================================================================
-   1. @THEME EXTENSION — Fluid clamp() size tokens
-   
-   These extend the static size tokens already in globals.css with fluid
-   counterparts. Tailwind generates fluid-[name] utility classes from these.
-   ============================================================================ */
-
-@theme inline {
-
-  /* Fluid sizes — scale smoothly from 375px → 1440px viewport */
-  --text-fluid-display:   clamp(2.25rem, 1.023rem + 5.231vw, 5rem);
-  --text-fluid-h1:        clamp(2rem,    0.923rem + 4.615vw, 4.5rem);
-  --text-fluid-h2:        clamp(1.5rem,  1.077rem + 1.846vw, 2.5rem);
-  --text-fluid-h3:        clamp(1.25rem, 1.038rem + 0.923vw, 1.75rem);
-  --text-fluid-h4:        clamp(1.0625rem, 0.929rem + 0.577vw, 1.375rem);
-  --text-fluid-h5:        clamp(1rem,    0.946rem + 0.231vw, 1.125rem);
-
-  /* Monospace font for reference numbers and technical IDs */
-  --font-mono:
-    'ui-monospace', 'SF Mono', 'Fira Code', 'Consolas', monospace;
-
-  /* Prose reading widths */
-  --prose-tight:    45ch;
-  --prose-standard: 60ch;
-  --prose-wide:     72ch;
-  --prose-max:      90ch;
-
-}
 
 
 /* ============================================================================
@@ -90,12 +64,14 @@ blockquote {
 }
 
 /* Strong / emphasis — use brand tokens, not browser defaults */
-strong, b {
+strong,
+b {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
 
-em, i {
+em,
+i {
   font-style: italic;
   color: inherit;
 }
@@ -119,13 +95,13 @@ em, i {
  * Usage:   <h1 class="type-hero-display">History is not written.</h1>
  */
 .type-hero-display {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-display);
-  font-weight:    300;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-display);
+  font-weight: 300;
   letter-spacing: -0.02em;
-  line-height:    1.0;
-  color:          var(--color-text-primary);
-  font-style:     normal;
+  line-height: 1.0;
+  color: var(--color-text-primary);
+  font-style: normal;
 
   /* Optical margin alignment — pull the first letter to the visual edge */
   hanging-punctuation: first last;
@@ -138,11 +114,11 @@ em, i {
  * .type-hero-display--italic
  * Italic variant for poetic, story-driven hero lines.
  * Cormorant's italic is exceptionally beautiful — use deliberately.
- * 
+ *
+ * Usage: class="type-hero-display type-hero-display--italic"
  * Example: "Every dial is a canvas."
  */
 .type-hero-display--italic {
-  composes: type-hero-display;
   font-style: italic;
   /* Italic at display size benefits from slightly looser tracking */
   letter-spacing: -0.01em;
@@ -161,13 +137,13 @@ em, i {
  * Usage:   <h1 class="type-page-heading">The Heritage Collection</h1>
  */
 .type-page-heading {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h1);
-  font-weight:    300;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h1);
+  font-weight: 300;
   letter-spacing: -0.02em;
-  line-height:    1.05;
-  color:          var(--color-text-primary);
-  text-wrap:      balance;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+  text-wrap: balance;
 }
 
 /**
@@ -177,13 +153,13 @@ em, i {
  * Usage: <h2 class="type-section-heading">The Atelier</h2>
  */
 .type-section-heading {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h2);
-  font-weight:    400;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h2);
+  font-weight: 400;
   letter-spacing: 0em;
-  line-height:    1.2;
-  color:          var(--color-text-primary);
-  text-wrap:      balance;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-wrap: balance;
 }
 
 /**
@@ -194,13 +170,13 @@ em, i {
  * Usage:   <h3 class="type-card-heading">Heritage 01</h3>
  */
 .type-card-heading {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h3);
-  font-weight:    500;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h3);
+  font-weight: 500;
   letter-spacing: 0.02em;
-  line-height:    1.35;
-  color:          var(--color-text-primary);
-  text-wrap:      balance;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  text-wrap: balance;
 }
 
 /**
@@ -212,12 +188,12 @@ em, i {
  * Usage:   <h4 class="type-sub-heading">Movement</h4>
  */
 .type-sub-heading {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h4);
-  font-weight:    500;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h4);
+  font-weight: 500;
   letter-spacing: 0.06em;
-  line-height:    1.35;
-  color:          var(--color-text-secondary);
+  line-height: 1.35;
+  color: var(--color-text-secondary);
 }
 
 /**
@@ -228,12 +204,12 @@ em, i {
  * Example: "The Craftsman's Hand" (within a scrolling story panel)
  */
 .type-editorial-heading {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h5);
-  font-weight:    400;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h5);
+  font-weight: 400;
   letter-spacing: 0.02em;
-  line-height:    1.35;
-  color:          var(--color-text-primary);
+  line-height: 1.35;
+  color: var(--color-text-primary);
 }
 
 
@@ -249,13 +225,15 @@ em, i {
  * Usage: <p class="type-narrative-lead">Every watch begins as an idea...</p>
  */
 .type-narrative-lead {
-  font-family:    var(--font-body);
-  font-size:      1.125rem;         /* Fixed 18px — body text never scales fluid */
-  font-weight:    300;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  /* Fixed 18px — body text never scales fluid */
+  font-weight: 300;
   letter-spacing: 0em;
-  line-height:    1.9;
-  color:          var(--color-text-secondary);
-  max-width:      var(--prose-wide); /* 72ch — wide editorial column */
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  max-width: var(--prose-wide);
+  /* 72ch — wide editorial column */
 }
 
 /**
@@ -265,13 +243,15 @@ em, i {
  * Usage: <p class="type-body">The Heritage Collection...</p>
  */
 .type-body {
-  font-family:    var(--font-body);
-  font-size:      0.9375rem;         /* Fixed 15px */
-  font-weight:    300;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  /* Fixed 15px */
+  font-weight: 300;
   letter-spacing: 0em;
-  line-height:    1.7;
-  color:          var(--color-text-secondary);
-  max-width:      var(--prose-standard); /* 60ch — optimal reading length */
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: var(--prose-standard);
+  /* 60ch — optimal reading length */
 }
 
 /**
@@ -279,8 +259,8 @@ em, i {
  * Body copy with slightly more contrast — used over dark glass panels.
  */
 .type-body--rich {
-  font-weight:  400;
-  color:        var(--color-text-primary);
+  font-weight: 400;
+  color: var(--color-text-primary);
 }
 
 /**
@@ -291,12 +271,13 @@ em, i {
  * Usage: <figcaption class="type-caption">Artisan applies gold leaf...</figcaption>
  */
 .type-caption {
-  font-family:    var(--font-body);
-  font-size:      0.875rem;   /* Fixed 14px */
-  font-weight:    400;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  /* Fixed 14px */
+  font-weight: 400;
   letter-spacing: 0em;
-  line-height:    1.6;
-  color:          var(--color-text-muted);
+  line-height: 1.6;
+  color: var(--color-text-muted);
 }
 
 /**
@@ -306,11 +287,12 @@ em, i {
  * Example: "Photography by Arjun Sharma, Jaipur Studio"
  */
 .type-caption--credit {
-  font-size:      0.6875rem; /* 11px */
+  font-size: 0.6875rem;
+  /* 11px */
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color:          var(--color-text-muted);
-  opacity:        0.7;
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }
 
 
@@ -327,16 +309,17 @@ em, i {
  * Usage:   <span class="type-section-label">Heritage Collection</span>
  */
 .type-section-label {
-  font-family:    var(--font-body);
-  font-size:      0.6875rem;   /* 11px */
-  font-weight:    600;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  /* 11px */
+  font-weight: 600;
   letter-spacing: 0.25em;
-  line-height:    1.7;
-  color:          var(--color-gold-400);
+  line-height: 1.7;
+  color: var(--color-gold-400);
   text-transform: uppercase;
 
   /* Compensate optical left shift from ultra-tracking */
-  margin-left:    0.25em;
+  margin-left: 0.25em;
 }
 
 /**
@@ -347,12 +330,13 @@ em, i {
  * Usage:   <a class="type-nav-label" href="/collections">Collections</a>
  */
 .type-nav-label {
-  font-family:    var(--font-body);
-  font-size:      0.75rem;    /* 12px */
-  font-weight:    600;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  /* 12px */
+  font-weight: 600;
   letter-spacing: 0.15em;
-  line-height:    1.7;
-  color:          var(--color-text-secondary);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
 
   transition-property: color;
@@ -371,14 +355,16 @@ em, i {
  * Example: "REQUEST CONSULTATION" / "EXPLORE COLLECTION"
  */
 .type-button-label {
-  font-family:    var(--font-body);
-  font-size:      0.75rem;     /* 12px */
-  font-weight:    600;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  /* 12px */
+  font-weight: 600;
   letter-spacing: 0.15em;
-  line-height:    1;           /* Button labels need tight leading */
-  color:          var(--color-text-primary);
+  line-height: 1;
+  /* Button labels need tight leading */
+  color: var(--color-text-primary);
   text-transform: uppercase;
-  white-space:    nowrap;
+  white-space: nowrap;
 }
 
 /**
@@ -389,12 +375,13 @@ em, i {
  * Example: "Heritage" / "Gold Dial" / "Swiss Movement"
  */
 .type-tag {
-  font-family:    var(--font-body);
-  font-size:      0.6875rem;   /* 11px */
-  font-weight:    500;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  /* 11px */
+  font-weight: 500;
   letter-spacing: 0.08em;
-  line-height:    1;
-  color:          var(--color-text-secondary);
+  line-height: 1;
+  color: var(--color-text-secondary);
 }
 
 
@@ -410,12 +397,13 @@ em, i {
  * Usage:   <dt class="type-spec-label">Movement</dt>
  */
 .type-spec-label {
-  font-family:    var(--font-body);
-  font-size:      0.75rem;    /* 12px */
-  font-weight:    600;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  /* 12px */
+  font-weight: 600;
   letter-spacing: 0.15em;
-  line-height:    1.6;
-  color:          var(--color-text-muted);
+  line-height: 1.6;
+  color: var(--color-text-muted);
   text-transform: uppercase;
 }
 
@@ -427,12 +415,13 @@ em, i {
  * Usage:   <dd class="type-spec-value">Swiss ETA 2824-2</dd>
  */
 .type-spec-value {
-  font-family:    var(--font-body);
-  font-size:      0.9375rem;  /* 15px */
-  font-weight:    400;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  /* 15px */
+  font-weight: 400;
   letter-spacing: 0em;
-  line-height:    1.6;
-  color:          var(--color-text-primary);
+  line-height: 1.6;
+  color: var(--color-text-primary);
 }
 
 
@@ -449,12 +438,13 @@ em, i {
  * Usage:   <span class="type-price">₹2,85,000</span>
  */
 .type-price {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h3);  /* Fluid 20–28px */
-  font-weight:    400;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h3);
+  /* Fluid 20–28px */
+  font-weight: 400;
   letter-spacing: 0.02em;
-  line-height:    1.35;
-  color:          var(--color-gold-400);
+  line-height: 1.35;
+  color: var(--color-gold-400);
 }
 
 /**
@@ -462,7 +452,8 @@ em, i {
  * Price on the watch detail page — primary visual element.
  */
 .type-price--large {
-  font-size:   var(--text-fluid-h2);  /* Fluid 24–40px */
+  font-size: var(--text-fluid-h2);
+  /* Fluid 24–40px */
   font-weight: 300;
 }
 
@@ -474,12 +465,13 @@ em, i {
  * Usage:   <time class="type-metadata">Limited Edition · 7 Pieces</time>
  */
 .type-metadata {
-  font-family:    var(--font-body);
-  font-size:      0.6875rem;  /* 11px */
-  font-weight:    400;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  /* 11px */
+  font-weight: 400;
   letter-spacing: 0.06em;
-  line-height:    1.7;
-  color:          var(--color-text-muted);
+  line-height: 1.7;
+  color: var(--color-text-muted);
 }
 
 /**
@@ -491,15 +483,16 @@ em, i {
  * Usage:   <code class="type-reference-id">HERITAGE_01</code>
  */
 .type-reference-id {
-  font-family:    var(--font-mono);
-  font-size:      0.6875rem;   /* 11px */
-  font-weight:    400;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  /* 11px */
+  font-weight: 400;
   letter-spacing: 0.06em;
-  line-height:    1.6;
-  color:          var(--color-text-muted);
-  background:     none;
-  border:         none;
-  padding:        0;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 /**
@@ -510,12 +503,13 @@ em, i {
  * Usage:   <span class="type-badge">Limited</span>
  */
 .type-badge {
-  font-family:    var(--font-body);
-  font-size:      0.625rem;   /* 10px */
-  font-weight:    600;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  /* 10px */
+  font-weight: 600;
   letter-spacing: 0.15em;
-  line-height:    1;
-  color:          var(--color-gold-400);
+  line-height: 1;
+  color: var(--color-gold-400);
   text-transform: uppercase;
 }
 
@@ -541,19 +535,21 @@ em, i {
  * Usage:   <blockquote class="type-pull-quote"><p>Time is not measured...</p></blockquote>
  */
 .type-pull-quote {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-h3);  /* Fluid 20–28px */
-  font-weight:    400;
-  font-style:     italic;
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-h3);
+  /* Fluid 20–28px */
+  font-weight: 400;
+  font-style: italic;
   letter-spacing: 0.02em;
-  line-height:    2.2;
-  color:          var(--color-text-primary);
-  max-width:      var(--prose-standard); /* 60ch */
+  line-height: 2.2;
+  color: var(--color-text-primary);
+  max-width: var(--prose-standard);
+  /* 60ch */
 
   /* Gold left rule — the visual signature of a pull-quote */
-  padding-left:   1.5rem;
-  border-left:    1px solid var(--color-gold-400);
-  margin:         0;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--color-gold-400);
+  margin: 0;
 }
 
 /**
@@ -561,14 +557,15 @@ em, i {
  * Larger variant for full-width cinematic story moments.
  */
 .type-pull-quote--large {
-  font-size:   var(--text-fluid-h2); /* Fluid 24–40px */
+  font-size: var(--text-fluid-h2);
+  /* Fluid 24–40px */
   line-height: 1.9;
-  max-width:   var(--prose-wide);
+  max-width: var(--prose-wide);
   border-left: none;
   padding-left: 0;
 
   /* Centered, full-width block — no left rule at large sizes */
-  text-align:  center;
+  text-align: center;
 }
 
 /**
@@ -580,13 +577,16 @@ em, i {
  * Usage:   <span class="type-chapter-marker" aria-hidden="true">01</span>
  */
 .type-chapter-marker {
-  font-family:    var(--font-display);
-  font-size:      var(--text-fluid-display);  /* Fluid 36–80px */
-  font-weight:    100;                         /* Featherlight — barely there */
+  font-family: var(--font-display);
+  font-size: var(--text-fluid-display);
+  /* Fluid 36–80px */
+  font-weight: 300;
+  /* Light — Cormorant min loaded weight */
   letter-spacing: -0.02em;
-  line-height:    1;
-  color:          var(--color-ink-300);       /* Extremely muted */
-  user-select:    none;
+  line-height: 1;
+  color: var(--color-ink-300);
+  /* Extremely muted */
+  user-select: none;
   pointer-events: none;
 
   /* Chapter markers are always decorative — never announce to screen readers */
@@ -599,13 +599,15 @@ em, i {
  * Slightly warmer than narrative-lead — more intimate.
  */
 .type-story-intro {
-  font-family:    var(--font-body);
-  font-size:      1.125rem;   /* 18px */
-  font-weight:    300;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  /* 18px */
+  font-weight: 300;
   letter-spacing: 0em;
-  line-height:    2.0;
-  color:          var(--color-text-secondary);
-  max-width:      var(--prose-wide); /* 72ch */
+  line-height: 2.0;
+  color: var(--color-text-secondary);
+  max-width: var(--prose-wide);
+  /* 72ch */
 }
 
 /**
@@ -613,13 +615,15 @@ em, i {
  * Story section body paragraphs. Slightly looser than product body copy.
  */
 .type-story-body {
-  font-family:    var(--font-body);
-  font-size:      0.9375rem;  /* 15px */
-  font-weight:    300;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  /* 15px */
+  font-weight: 300;
   letter-spacing: 0em;
-  line-height:    1.9;
-  color:          var(--color-text-secondary);
-  max-width:      var(--prose-standard); /* 60ch */
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  max-width: var(--prose-standard);
+  /* 60ch */
 }
 
 
@@ -630,28 +634,36 @@ em, i {
 /**
  * .prose-tight — 45ch — Specs, short captions, sidebar content.
  */
-.prose-tight    { max-width: var(--prose-tight); }
+.prose-tight {
+  max-width: var(--prose-tight);
+}
 
 /**
  * .prose — 60ch — Standard body copy. Default prose container.
  */
-.prose          { max-width: var(--prose-standard); }
+.prose {
+  max-width: var(--prose-standard);
+}
 
 /**
  * .prose-wide — 72ch — Editorial story sections.
  */
-.prose-wide     { max-width: var(--prose-wide); }
+.prose-wide {
+  max-width: var(--prose-wide);
+}
 
 /**
  * .prose-max — 90ch — Full-width editorial text stages only.
  */
-.prose-max      { max-width: var(--prose-max); }
+.prose-max {
+  max-width: var(--prose-max);
+}
 
 /**
  * .prose-centered — Centered prose with auto horizontal margins.
  */
 .prose-centered {
-  margin-left:  auto;
+  margin-left: auto;
   margin-right: auto;
 }
 
@@ -670,10 +682,10 @@ em, i {
 
   /* Pull quotes: remove centered layout on mobile, revert to left rule */
   .type-pull-quote--large {
-    text-align:   left;
+    text-align: left;
     padding-left: 1.5rem;
-    border-left:  1px solid var(--color-gold-400);
-    max-width:    var(--prose-standard);
+    border-left: 1px solid var(--color-gold-400);
+    max-width: var(--prose-standard);
   }
 
   /* Chapter markers: reduce opacity further — less distraction on small screens */
@@ -693,11 +705,14 @@ em, i {
 
   /* Section labels: maintain full tracking — this is identity, not scaling */
   .type-section-label {
-    letter-spacing: 0.20em; /* Reduce ultra-wide tracking slightly for mobile */
+    letter-spacing: 0.20em;
+    /* Reduce ultra-wide tracking slightly for mobile */
   }
 
   /* Prose containers are fully fluid on mobile */
-  .prose, .prose-wide, .prose-max {
+  .prose,
+  .prose-wide,
+  .prose-max {
     max-width: 100%;
   }
 
@@ -707,7 +722,8 @@ em, i {
 
   /* Minimum mobile: ensure all display text has at least 1 line breathing */
   .type-hero-display {
-    line-height: 1.05; /* Allow multi-line at smallest mobile sizes */
+    line-height: 1.05;
+    /* Allow multi-line at smallest mobile sizes */
   }
 
   /* Price: reduce to H4 scale at smallest mobile */
@@ -721,7 +737,8 @@ em, i {
 
   /* Desktop: unlock the tightest display leading */
   .type-hero-display {
-    line-height: 0.95; /* Slightly below 1 at desktop — pure typographic block */
+    line-height: 0.95;
+    /* Slightly below 1 at desktop — pure typographic block */
   }
 
   /* Desktop: narrative lead gets full editorial width */
@@ -748,28 +765,72 @@ em, i {
    ============================================================================ */
 
 /* ── Color Modifiers ────────────────────────────────────────────────────── */
-.text-primary   { color: var(--color-text-primary) !important; }
-.text-secondary { color: var(--color-text-secondary) !important; }
-.text-muted     { color: var(--color-text-muted) !important; }
-.text-gold      { color: var(--color-gold-400) !important; }
-.text-silver    { color: var(--color-silver-400) !important; }
-.text-inverse   { color: var(--color-text-inverse) !important; }
+.text-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+.text-gold {
+  color: var(--color-gold-400) !important;
+}
+
+.text-silver {
+  color: var(--color-silver-400) !important;
+}
+
+.text-inverse {
+  color: var(--color-text-inverse) !important;
+}
 
 /* ── Weight Modifiers ───────────────────────────────────────────────────── */
-.weight-light    { font-weight: 300 !important; }
-.weight-regular  { font-weight: 400 !important; }
-.weight-medium   { font-weight: 500 !important; }
-.weight-semibold { font-weight: 600 !important; }
-.weight-bold     { font-weight: 700 !important; }
+.weight-light {
+  font-weight: 300 !important;
+}
+
+.weight-regular {
+  font-weight: 400 !important;
+}
+
+.weight-medium {
+  font-weight: 500 !important;
+}
+
+.weight-semibold {
+  font-weight: 600 !important;
+}
+
+.weight-bold {
+  font-weight: 700 !important;
+}
 
 /* ── Style Modifiers ────────────────────────────────────────────────────── */
-.italic   { font-style: italic !important; }
-.upright  { font-style: normal !important; }
+.italic {
+  font-style: italic !important;
+}
+
+.upright {
+  font-style: normal !important;
+}
 
 /* ── Alignment Modifiers ────────────────────────────────────────────────── */
-.text-left    { text-align: left; }
-.text-center  { text-align: center; }
-.text-right   { text-align: right; }
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
 
 /* ── Decorative Enhancements ────────────────────────────────────────────── */
 
@@ -781,11 +842,11 @@ em, i {
  * Example: <span class="type-hero-display text-gradient-gold">LEVORA</span>
  */
 .text-gradient-gold {
-  background:              var(--gradient-gold-metallic);
-  background-clip:         text;
+  background: var(--gradient-gold-metallic);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  color:                   transparent;
+  color: transparent;
 }
 
 /**
@@ -793,11 +854,11 @@ em, i {
  * Silver metallic text fill — for secondary metallic moments.
  */
 .text-gradient-silver {
-  background:              var(--gradient-silver-metallic);
-  background-clip:         text;
+  background: var(--gradient-silver-metallic);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  color:                   transparent;
+  color: transparent;
 }
 
 /**
@@ -805,14 +866,18 @@ em, i {
  * Forces text-wrap balance. Use on headings that might break awkwardly.
  * Already applied to most type-* heading classes by default.
  */
-.text-balance { text-wrap: balance; }
+.text-balance {
+  text-wrap: balance;
+}
 
 /**
  * .text-pretty
  * Reduces typographic widows in longer body paragraphs.
  * Use on .type-body and .type-narrative-lead when needed.
  */
-.text-pretty { text-wrap: pretty; }
+.text-pretty {
+  text-wrap: pretty;
+}
 
 /**
  * .sr-only — Screen reader only text (accessible hidden labels)
@@ -820,12 +885,12 @@ em, i {
  */
 .sr-only {
   position: absolute;
-  width:    1px;
-  height:   1px;
-  padding:  0;
-  margin:   -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip:     rect(0, 0, 0, 0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  border:   0;
+  border: 0;
 }

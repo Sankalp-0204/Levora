@@ -81,6 +81,30 @@ export interface Collection extends AuditFields {
   slug: Slug;
 
   /**
+   * Defines the primary purchasing workflow for items in this collection.
+   * Overrides can exist on individual watches via checkoutType.
+   */
+  purchaseTier: "concierge" | "direct";
+
+  /**
+   * Maximum inventory allowed for this collection.
+   * Null indicates open production (e.g. Signature).
+   */
+  maxInventory: number | null;
+
+  /**
+   * Controls visibility of this collection in public listings.
+   * Useful for gated/membership-only collections.
+   */
+  isPubliclyListed: boolean;
+
+  /**
+   * Scheduled launch date (ISO string).
+   * Used for countdowns and pre-launch gating.
+   */
+  launchDate: string | null;
+
+  /**
    * One-line luxury subtitle displayed beneath the collection name.
    * Example: "Seven dials. Seven dynasties."
    */

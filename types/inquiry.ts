@@ -234,3 +234,22 @@ export type CreateInquiryPayload = Omit<
 export type UpdateInquiryPayload = Partial<
   Omit<Inquiry, "id" | "createdAt" | "updatedAt">
 >;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CLIENT FORM DATA
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Data collected from the client-side ConciergeInquiryModal form.
+ */
+export interface ConciergeInquiryFormData {
+  name: string;
+  email: string;
+  phone: string;
+  interestedWatchIds: string[];
+  preferredContactMethod: "phone" | "email" | "whatsapp";
+  preferredContactTime?: string;
+  budget?: string;
+  message?: string;
+}
+

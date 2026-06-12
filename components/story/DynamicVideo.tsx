@@ -1,78 +1,101 @@
 "use client";
 
+import React, { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { MediaLayer, MediaAsset } from "@/components/story/MediaLayer";
+
 /**
  * @file components/story/DynamicVideo.tsx
- * @description Ambient video loop component for Section 01 — The Threshold.
- *
- * Sprint 2 scaffold — structural only. No GSAP. No styling.
- *
- * Marked "use client" because the <video> autoPlay attribute requires
- * a browser environment. Next.js hydrates this on the client after
- * the Server Component shell is served.
- *
- * Accessibility:
- *   - role="img" on the video container communicates it is decorative media.
- *   - aria-hidden="true" prevents screen readers from announcing the video.
- *   - A visually-hidden <p> provides a textual description for screen readers.
- *
- * GSAP integration point:
- *   - data-gsap="threshold-video" reserved for lib/gsap/thresholdEntrance.ts
- *
- * Sprint 3 upgrade:
- *   - src and posterSrc will be sourced from Firestore MediaAsset records.
+ * @description Maison Film Section for Section 01 — The Threshold.
+ * Loops through a series of cinematic MediaAssets (SVG abstractions or Video).
+ * Uses slow, deliberate GSAP fades to establish a luxury documentary atmosphere.
  */
 
 interface DynamicVideoProps {
-  /** Path to the ambient video file (WebM preferred, MP4 fallback). */
-  src?: string;
-  /** Path to the poster image shown before video loads (AVIF / WebP). */
-  posterSrc?: string;
-  /** Accessible description for screen reader users. */
   accessibleLabel?: string;
 }
 
+// Fallback sequence representing the cinematic chapters:
+// Macro dial, Artisan hands, Heritage pattern, Movement assembly
+const FILM_SEQUENCE: MediaAsset[] = [
+  { type: "heritage-motion", motionType: "bidriware", alt: "Dial Macro Cinematography" },
+  { type: "heritage-motion", motionType: "warli", alt: "Artisan Hands at Work" },
+  { type: "heritage-motion", motionType: "pattachitra", alt: "Heritage Visuals" },
+  { type: "heritage-motion", motionType: "chand_baori", alt: "Movement Assembly Details" },
+];
+
 export default function DynamicVideo({
-  src,
-  posterSrc,
-  accessibleLabel = "An ambient video showing the craftsmanship and materials of a Levora timepiece.",
+  accessibleLabel = "A cinematic montage showing Levora's craftsmanship, heritage arts, and horological assembly.",
 }: DynamicVideoProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Slow fade loop
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % FILM_SEQUENCE.length);
+    }, 6000); // 6 seconds per scene
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      const slides = gsap.utils.toArray<HTMLElement>(".film-slide");
+      slides.forEach((slide, index) => {
+        if (index === currentIndex) {
+          gsap.to(slide, { opacity: 1, duration: 2, ease: "power2.inOut" });
+          // Very subtle slow zoom for cinematic effect
+          gsap.fromTo(
+            slide,
+            { scale: 1 },
+            { scale: 1.05, duration: 8, ease: "none", overwrite: "auto" }
+          );
+        } else {
+          gsap.to(slide, { opacity: 0, duration: 2, ease: "power2.inOut" });
+        }
+      });
+    },
+    { dependencies: [currentIndex], scope: containerRef }
+  );
+
   return (
     <div
-      aria-label="Ambient video background"
+      ref={containerRef}
+      aria-label={accessibleLabel}
       data-gsap="threshold-video"
       role="img"
+      className="absolute inset-0 z-0 overflow-hidden bg-black"
     >
-      {/* Screen reader description — visually hidden */}
       <p className="sr-only">{accessibleLabel}</p>
 
-      {src ? (
-        <video
-          aria-hidden="true"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={posterSrc}
-          preload="metadata"
-        >
-          {/* WebM (VP9) — preferred for Chrome / Firefox */}
-          <source src={src.replace(/\.(mp4|mov)$/, ".webm")} type="video/webm" />
-          {/* MP4 (H.264) — fallback for Safari */}
-          <source src={src} type="video/mp4" />
-        </video>
-      ) : (
-        /*
-         * Placeholder state — shown during Sprint 2 development before
-         * actual video assets are available.
-         */
+      {FILM_SEQUENCE.map((asset, idx) => (
         <div
-          aria-hidden="true"
-          data-placeholder="ambient-video"
-          role="presentation"
+          key={idx}
+          className="film-slide absolute inset-0 opacity-0 will-change-[opacity,transform]"
         >
-          <span>[ Ambient video placeholder — asset pending ]</span>
+          <MediaLayer asset={asset} />
         </div>
-      )}
+      ))}
+
+      {/* Overlay gradient to fade into page background */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-b from-transparent to-[var(--color-void-200)] pointer-events-none"
+      />
+
+      {/* Dark overlay for text legibility */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-black/40 pointer-events-none"
+      />
     </div>
   );
 }

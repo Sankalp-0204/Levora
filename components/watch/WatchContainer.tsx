@@ -2,7 +2,7 @@
  * @file components/watch/WatchContainer.tsx
  * @description Polymorphic watch renderer selector.
  *
- * Sprint 2 scaffold — structural placeholder only.
+ * Sprint 2C Phase 5 — Collection Experience.
  *
  * This component acts as the orchestrator defined in COMPONENTS.md §2.
  * It reads the watch's renderType and delegates to the correct renderer:
@@ -23,7 +23,7 @@ import StaticRenderer from "./StaticRenderer";
 type RenderType = "static" | "layered" | "3d";
 
 interface WatchContainerProps {
-  /** Heritage watch identifier — e.g. "HERITAGE_01" */
+  /** Heritage or Signature watch identifier — e.g. "HERITAGE_01" */
   watchId: string;
   /** Display name of the watch */
   watchName: string;
@@ -39,6 +39,13 @@ interface WatchContainerProps {
   renderType?: RenderType;
   /** Whether this is the active card in the Collection slider */
   isActive?: boolean;
+  /** Purchase routing strategy for the watch card CTA */
+  checkoutType?: "concierge_inquiry" | "direct_checkout";
+  /**
+   * Whether this card should render the Signature Coming Soon experience.
+   * Passed through to StaticRenderer. No commerce logic.
+   */
+  isComingSoon?: boolean;
 }
 
 export default function WatchContainer({
@@ -48,6 +55,8 @@ export default function WatchContainer({
   slug,
   renderType = "static",
   isActive = false,
+  checkoutType = "concierge_inquiry",
+  isComingSoon = false,
 }: WatchContainerProps) {
   /**
    * Sprint 2: renderType is logged as a data attribute for future
@@ -68,6 +77,8 @@ export default function WatchContainer({
         tagline={tagline}
         slug={slug}
         isActive={isActive}
+        checkoutType={checkoutType}
+        isComingSoon={isComingSoon}
       />
     </div>
   );
