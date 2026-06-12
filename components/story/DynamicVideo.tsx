@@ -1,169 +1,100 @@
 "use client";
 
+import React, { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { MediaLayer, MediaAsset } from "@/components/story/MediaLayer";
+
 /**
  * @file components/story/DynamicVideo.tsx
- * @description Ambient video loop component for Section 01 — The Threshold.
- *
- * Sprint 2C Phase 4 — Layout Foundation.
- *
- * Full-bleed container filling the hero section.
- * Renders either an ambient video loop or a styled placeholder when no src.
- * An overlay gradient fades the video into the page background at the bottom,
- * creating a seamless transition into Section 02.
- *
- * Accessibility:
- *   - role="img" on the video container communicates decorative media.
- *   - aria-hidden="true" on <video> prevents screen reader announcement.
- *   - Visually-hidden <p> provides a textual description for screen readers.
- *
- * Design tokens used:
- *   --color-void-200 (overlay fade)
- *   --color-void-400 (placeholder bg)
- *   --gradient-gold-glow (placeholder ambient glow)
- *   --color-text-muted (placeholder label)
- *
- * GSAP integration point:
- *   data-gsap="threshold-video" reserved for lib/gsap/thresholdEntrance.ts (Sprint 3)
- *
- * Sprint 3 upgrade:
- *   src and posterSrc will be sourced from Firestore MediaAsset records.
+ * @description Maison Film Section for Section 01 — The Threshold.
+ * Loops through a series of cinematic MediaAssets (SVG abstractions or Video).
+ * Uses slow, deliberate GSAP fades to establish a luxury documentary atmosphere.
  */
 
 interface DynamicVideoProps {
-  /** Path to the ambient video file (WebM preferred, MP4 fallback). */
-  src?: string;
-  /** Path to the poster image shown before video loads (AVIF / WebP). */
-  posterSrc?: string;
-  /** Accessible description for screen reader users. */
   accessibleLabel?: string;
 }
 
+// Fallback sequence representing the cinematic chapters:
+// Macro dial, Artisan hands, Heritage pattern, Movement assembly
+const FILM_SEQUENCE: MediaAsset[] = [
+  { type: "heritage-motion", motionType: "bidriware", alt: "Dial Macro Cinematography" },
+  { type: "heritage-motion", motionType: "warli", alt: "Artisan Hands at Work" },
+  { type: "heritage-motion", motionType: "pattachitra", alt: "Heritage Visuals" },
+  { type: "heritage-motion", motionType: "chand_baori", alt: "Movement Assembly Details" },
+];
+
 export default function DynamicVideo({
-  src,
-  posterSrc,
-  accessibleLabel = "An ambient video showing the craftsmanship and materials of a Levora timepiece.",
+  accessibleLabel = "A cinematic montage showing Levora's craftsmanship, heritage arts, and horological assembly.",
 }: DynamicVideoProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Slow fade loop
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % FILM_SEQUENCE.length);
+    }, 6000); // 6 seconds per scene
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      const slides = gsap.utils.toArray<HTMLElement>(".film-slide");
+      slides.forEach((slide, index) => {
+        if (index === currentIndex) {
+          gsap.to(slide, { opacity: 1, duration: 2, ease: "power2.inOut" });
+          // Very subtle slow zoom for cinematic effect
+          gsap.fromTo(
+            slide,
+            { scale: 1 },
+            { scale: 1.05, duration: 8, ease: "none", overwrite: "auto" }
+          );
+        } else {
+          gsap.to(slide, { opacity: 0, duration: 2, ease: "power2.inOut" });
+        }
+      });
+    },
+    { dependencies: [currentIndex], scope: containerRef }
+  );
+
   return (
     <div
-      aria-label="Ambient video background"
+      ref={containerRef}
+      aria-label={accessibleLabel}
       data-gsap="threshold-video"
       role="img"
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 0,
-        overflow: "hidden",
-      }}
+      className="absolute inset-0 z-0 overflow-hidden bg-black"
     >
-      {/* Screen reader description — visually hidden */}
-      <p
-        className="sr-only"
-        style={{
-          position: "absolute",
-          width: "1px",
-          height: "1px",
-          padding: 0,
-          margin: "-1px",
-          overflow: "hidden",
-          clip: "rect(0, 0, 0, 0)",
-          whiteSpace: "nowrap",
-          border: 0,
-        }}
-      >
-        {accessibleLabel}
-      </p>
+      <p className="sr-only">{accessibleLabel}</p>
 
-      {src ? (
-        <video
-          aria-hidden="true"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={posterSrc}
-          preload="metadata"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        >
-          {/* WebM (VP9) — preferred for Chrome / Firefox */}
-          <source src={src.replace(/\.(mp4|mov)$/, ".webm")} type="video/webm" />
-          {/* MP4 (H.264) — fallback for Safari */}
-          <source src={src} type="video/mp4" />
-        </video>
-      ) : (
-        /*
-         * Placeholder state — shown during development before
-         * actual video assets are available.
-         * Styled to occupy the same space as a real video would.
-         */
+      {FILM_SEQUENCE.map((asset, idx) => (
         <div
-          aria-hidden="true"
-          data-placeholder="ambient-video"
-          role="presentation"
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "var(--color-void-400)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+          key={idx}
+          className="film-slide absolute inset-0 opacity-0 will-change-[opacity,transform]"
         >
-          {/* Ambient gold glow — visual placeholder for watch dial atmosphere */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "var(--gradient-gold-glow)",
-              pointerEvents: "none",
-            }}
-          />
-          <span
-            className="type-metadata"
-            style={{
-              position: "relative",
-              zIndex: 1,
-              color: "var(--color-text-muted)",
-            }}
-          >
-            [ Ambient video — asset pending ]
-          </span>
+          <MediaLayer asset={asset} />
         </div>
-      )}
+      ))}
 
-      {/*
-       * Overlay gradient — fades the bottom of the video into the page background.
-       * Creates visual continuity between the hero and Section 02.
-       */}
+      {/* Overlay gradient to fade into page background */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "40%",
-          background: `linear-gradient(to bottom, transparent 0%, var(--color-void-200) 100%)`,
-          pointerEvents: "none",
-        }}
+        className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-b from-transparent to-[var(--color-void-200)] pointer-events-none"
       />
 
-      {/* Dark overlay to ensure text legibility over the video */}
+      {/* Dark overlay for text legibility */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundColor: "rgba(5, 5, 5, 0.35)",
-          pointerEvents: "none",
-        }}
+        className="absolute inset-0 bg-black/40 pointer-events-none"
       />
     </div>
   );

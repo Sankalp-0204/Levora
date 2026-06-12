@@ -4,8 +4,8 @@ import { WATCH_PLACEHOLDERS } from "@/lib/constants/collection";
 import { getWatchDetailBySlug } from "@/lib/constants/watchDetail";
 
 import { HeroSection } from "@/components/watchDetail/HeroSection";
-import { ArtworkOriginSection } from "@/components/watchDetail/ArtworkOriginSection";
-import { TheLessonSection } from "@/components/watchDetail/TheLessonSection";
+import { CinematicChapter } from "@/components/story/CinematicChapter";
+import { MediaAsset } from "@/components/story/MediaLayer";
 import { DialTransformationSection } from "@/components/watchDetail/DialTransformationSection";
 import { TechnicalArchitectureSection } from "@/components/watchDetail/TechnicalArchitectureSection";
 import { AtelierCraftsmenSection } from "@/components/watchDetail/AtelierCraftsmenSection";
@@ -62,6 +62,24 @@ export default async function WatchDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  // Determine motion type based on watch ID
+  let motionType: "warli" | "pattachitra" | "chand_baori" | "bidriware" | undefined = undefined;
+  if (baseWatch.id === "HERITAGE_03") motionType = "warli";
+  else if (baseWatch.id === "HERITAGE_04") motionType = "pattachitra";
+  else if (baseWatch.id === "HERITAGE_01") motionType = "chand_baori";
+  else if (baseWatch.id === "HERITAGE_07") motionType = "bidriware";
+
+  const chapterAsset: MediaAsset = motionType
+    ? { type: "heritage-motion", motionType, alt: `${baseWatch.artworkTitle} heritage motion` }
+    : { type: "svg", svgContent: `<svg width="100%" height="100%"><rect width="100%" height="100%" fill="#111" /></svg>`, alt: "Background" };
+
+  const chapterSteps = editorialContent.artworkOriginBody.map((paragraph, idx) => ({
+    id: `origin-step-${idx}`,
+    eyebrow: idx === 0 ? editorialContent.artworkRegion : undefined,
+    headline: idx === 0 ? editorialContent.artworkOriginTitle : "",
+    body: paragraph,
+  }));
+
   return (
     <main className="bg-surface-base text-ink-white min-h-screen">
       {/* 1. Hero */}
@@ -71,13 +89,11 @@ export default async function WatchDetailPage({ params }: PageProps) {
         quote={editorialContent.heroQuote}
       />
 
-      {/* 2. Artwork Origin */}
-      <ArtworkOriginSection content={editorialContent} />
-
-      {/* 3. The Lesson */}
-      <TheLessonSection
-        title={editorialContent.lessonTitle}
-        body={editorialContent.lessonBody}
+      {/* 2. Cinematic Chapter (Replaces Origin & Lesson to avoid presentation deck) */}
+      <CinematicChapter
+        id="artwork-origin"
+        backgroundAsset={chapterAsset}
+        steps={chapterSteps}
       />
 
       {/* 4. Dial Transformation */}
