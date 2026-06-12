@@ -17,6 +17,7 @@ import type { Metadata } from "next";
 import { cormorantGaramond, outfit } from "./fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -62,6 +63,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <AnalyticsProvider />
       </body>
     </html>
   );
